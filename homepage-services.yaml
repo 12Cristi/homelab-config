@@ -1,0 +1,105 @@
+- Media:
+    - Jellyfin:
+        icon: jellyfin
+        href: http://jellyfin.lan:8096
+        server: my-docker
+        container: jellyfin
+    - Audiobooks:
+        icon: audiobookshelf
+        href: http://books.lan:13378
+        server: my-docker
+        container: audiobookshelf
+
+- Network:
+    - Pi-hole:
+        icon: pi-hole
+        href: http://pihole.lan:8082/admin
+        server: my-docker
+        container: pihole
+        widget:
+          type: customapi
+          url: http://192.168.68.200:8082/api/stats/summary
+          method: GET
+          headers:
+            X-FTL-SID: qNSwDjMOrILor8B06lxDCQ=
+          mappings:
+            - field: queries.total
+              label: Queries
+              format: number
+            - field: queries.blocked
+              label: Blocked
+              format: number
+            - field: queries.percent_blocked
+              label: Blocked %
+              format: percent
+            - field: gravity.domains_being_blocked
+              label: Gravity
+              format: number
+
+- Downloads:
+    - qBittorrent:
+        icon: qbittorrent
+        href: http://torrent.lan:8080
+        server: my-docker
+        container: qbittorrent
+        widget:
+          type: qbittorrent
+          url: http://192.168.68.200:8080
+          username: admin
+          password: REDACTED
+
+- Automation:
+    - Prowlarr:
+        icon: prowlarr
+        href: http://prowlarr.lan:9696
+        server: my-docker
+        container: prowlarr
+        widget:
+          type: prowlarr
+          url: http://192.168.68.200:9696
+          key: c98cacee94ad4c358d94fc842eeedeab
+    - Radarr:
+        icon: radarr
+        href: http://radarr.lan:7878
+        server: my-docker
+        container: radarr
+        widget:
+          type: radarr
+          url: http://192.168.68.200:7878
+          key: 87146cefaf5347df9d5a9b89aefcb723
+    - Sonarr:
+        icon: sonarr
+        href: http://sonarr.lan:8989
+        server: my-docker
+        container: sonarr
+        widget:
+          type: sonarr
+          url: http://192.168.68.200:8989
+          key: 4c0d31d9840c47179481959c5c224946
+
+- Files:
+    - FileBrowser:
+        icon: filebrowser
+        href: http://files.lan:8090
+        server: my-docker
+        container: filebrowser
+
+- Printing:
+    - CUPS:
+        icon: cups
+        href: http://192.168.68.200:631
+        description: Imprimanta AirPrint
+        server: my-docker
+        container: cups-airprint
+
+- Monitorizare Spital:
+    - Change Detection:
+        icon: changedetection.png
+        href: http://watch.lan:5000
+        description: Monitorizare Reumatologie
+        server: my-docker
+        container: changedetection
+        widget:
+          type: changedetectionio
+          url: http://192.168.68.200:5000
+          key: "9e7a96439671ebc6eb206577144d57d6"

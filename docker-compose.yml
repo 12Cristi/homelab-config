@@ -1,0 +1,169 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    privileged: true
+    user : root
+    init: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/cristi/server/homepage/config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - HOMEPAGE_ALLOWED_HOSTS=192.168.68.200:3000,homepc:3000,homepc.tail1b235c.ts.net:3000,100.113.68.25:3000,localhost:3000
+    restart: unless-stopped 
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    network_mode: host
+    volumes:
+      - ./jellyfin:/config
+      - ./movies:/media/movies
+      - ./series:/media/series
+    restart: unless-stopped
+
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - WEBUI_PORT=8080
+    volumes:
+      - ./qb-config:/config
+      - ./downloads:/downloads
+      - ./movies:/movies
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    dns: 
+      - 8.8.8.8
+      - 1.1.1.1
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    privileged: true  # Doar dacă tot mai dă erori de permisiuni
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - CHOWN
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8082:80"
+    environment:
+      - TZ=Europe/Bucharest
+      - FTLCONF_webserver_api_password=REDACTED
+      - FTLCONF_webserver_api_cli_pw=false
+    volumes:
+      - /home/cristi/server/pihole/etc-pihole:/etc/pihole
+      - /home/cristi/server/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+    restart: unless-stopped
+
+  cups-airprint:
+    image: jdrtronix/cups-hplip:latest
+    container_name: cups-airprint
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    devices:
+      - "/dev/bus/usb/002/004:/dev/bus/usb/002/004" # Mapare directă bazată pe lsusb
+    volumes:
+      - /var/run/dbus:/var/run/dbus
+      - ./cups-config/etc-cups:/etc/cups
+      - /dev/bus/usb:/dev/bus/usb
+      - /dev:/dev
+    environment:
+      - CUPSADMIN=admin
+      - CUPSPASSWORD=REDACTED
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1   
+ #   deploy:
+  #    resources:
+   #     limits:
+    #      cpus: '1.0'
+     #     memory: 1G
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    user: "1000:1000"
+    restart: unless-stopped
+    ports:
+      - "8090:80"
+    volumes:
+      - /home/cristi/server:/srv
+      - /home/cristi/server/filebrowser.db:/database.db
+    # Am pus căile absolute în comenzi ca să nu existe dubii
+    command: ["--address", "0.0.0.0", "--port", "80", "--database", "/database.db", "--root", "/srv", "--noauth"]     
+
+  audiobookshelf:
+    container_name: audiobookshelf
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    ports:
+      - 13378:80
+    volumes:
+      - ~/server/books:/books
+      - ~/server/abs/config:/config
+      - ~/server/abs/metadata:/metadata
+    environment:
+      - TZ=Europe/Bucharest
+      - PUID=1000
+      - PGID=1000
+    restart: unless-stopped
+
+  changedetection:
+    image: dgtlmoon/changedetection.io
+    container_name: changedetection
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./changedetection_data:/datastore
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Bucharest
+    volumes:
+      - ./prowlarr/config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Bucharest
+    volumes:
+      - ./radarr/config:/config
+      - ./movies:/movies
+      - ./downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Bucharest
+    volumes:
+      - ./sonarr/config:/config
+      - ./series:/series
+      - ./downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
