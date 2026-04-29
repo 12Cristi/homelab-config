@@ -13,7 +13,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - HOMEPAGE_ALLOWED_HOSTS=192.168.68.200:3000,homepc:3000,homepc.tail1b235c.ts.net:3000,100.113.68.25:3000,localhost:3000
+      - HOMEPAGE_ALLOWED_HOSTS=homepc.local:3000,homepc.local:3000,192.168.68.200:3000,homepc:3000,homepc.tail1b235c.ts.net:3000,100.113.68.25:3000,localhost:3000
     restart: unless-stopped 
 
   jellyfin:
@@ -166,4 +166,19 @@ services:
       - ./downloads:/downloads
     ports:
       - 8989:8989
+    restart: unless-stopped
+  
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Bucharest
+    volumes:
+      - ./bazarr/config:/config
+      - ./series:/series
+      - ./movies:/movies
+    ports:
+      - 6767:6767
     restart: unless-stopped

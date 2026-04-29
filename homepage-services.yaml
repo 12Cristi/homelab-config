@@ -21,7 +21,7 @@
           url: http://192.168.68.200:8082/api/stats/summary
           method: GET
           headers:
-            X-FTL-SID: T30Eb5+n3T8rcbkjm4rRlw=
+            X-FTL-SID: hlQlEsFliBT6aIXqUs1sJw=
           mappings:
             - field: queries.total
               label: Queries
@@ -76,7 +76,15 @@
           type: sonarr
           url: http://192.168.68.200:8989
           key: 4c0d31d9840c47179481959c5c224946
-
+    - Bazarr:
+        icon: bazarr
+        href: http://192.168.68.200:6767
+        server: my-docker
+        container: bazarr
+        widget:
+          type: bazarr
+          url: http://192.168.68.200:6767
+          key: a856c742181fdd3950251dc0569eaacb 
 - Files:
     - FileBrowser:
         icon: filebrowser
