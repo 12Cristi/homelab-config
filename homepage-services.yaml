@@ -21,7 +21,7 @@
           url: http://192.168.68.200:8082/api/stats/summary
           method: GET
           headers:
-            X-FTL-SID: qNSwDjMOrILor8B06lxDCQ=
+            X-FTL-SID: T30Eb5+n3T8rcbkjm4rRlw=
           mappings:
             - field: queries.total
               label: Queries
