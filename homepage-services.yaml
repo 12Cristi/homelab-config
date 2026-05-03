@@ -21,7 +21,7 @@
           url: http://192.168.68.200:8082/api/stats/summary
           method: GET
           headers:
-            X-FTL-SID: hlQlEsFliBT6aIXqUs1sJw=
+            X-FTL-SID: rCyKzSeSgKKJBJLq0riPKA=
           mappings:
             - field: queries.total
               label: Queries
@@ -47,6 +47,7 @@
           url: http://192.168.68.200:8080
           username: admin
           password: REDACTED
+
 
 - Automation:
     - Prowlarr:
@@ -111,3 +112,16 @@
           type: changedetectionio
           url: http://192.168.68.200:5000
           key: "9e7a96439671ebc6eb206577144d57d6"
+- Promoții Zalău:
+    - Promotii:
+         href: http://promotii.lan:8001
+         description: Oferte supermarketuri Zalău
+         icon: mdi-tag-multiple
+         widget:
+           type: customapi
+           url: http://promotii-zalau:8000/api/status
+           refreshInterval: 300000   # 5 min
+           mappings:
+             - field: total_products
+               label: Promoții
+               format: number

@@ -182,3 +182,17 @@ services:
     ports:
       - 6767:6767
     restart: unless-stopped
+  promotii-zalau:
+    build: ./promotii-zalau
+    container_name: promotii-zalau
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:8000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
