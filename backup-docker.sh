@@ -9,6 +9,9 @@ KEEP_BACKUPS=4
 
 echo "=== Backup pornit la $(date) ===" >> "$LOG_FILE"
 
+# Stop changedetection ca sa nu blocheze fisiere
+docker stop changedetection >> "$LOG_FILE" 2>&1
+
 # Mergi in folderul parent
 cd /home/cristi || exit 1
 
@@ -26,15 +29,21 @@ sudo tar czpf "$BACKUP_DIR/docker-config-$DATE.tar.gz" \
   --exclude='server/abs/metadata/cache' \
   --exclude='server/qb-config/qBittorrent/logs' \
   server/ 2>> "$LOG_FILE"
+
+TAR_RESULT=$?
 sudo chown cristi:cristi "$BACKUP_DIR/docker-config-$DATE.tar.gz"
 
-if [ $? -eq 0 ]; then
+# Restart changedetection (imediat, indiferent de rezultat tar)
+docker start changedetection >> "$LOG_FILE" 2>&1
+
+if [ $TAR_RESULT -eq 0 ]; then
     SIZE=$(du -h "$BACKUP_DIR/docker-config-$DATE.tar.gz" | cut -f1)
     echo "✓ Backup OK: docker-config-$DATE.tar.gz ($SIZE)" >> "$LOG_FILE"
 else
     echo "✗ EROARE la backup!" >> "$LOG_FILE"
     exit 1
 fi
+
 
 # Sterge backup-urile mai vechi, pastreaza ultimele $KEEP_BACKUPS
 cd "$BACKUP_DIR" || exit 1
