@@ -17,24 +17,10 @@
         server: my-docker
         container: pihole
         widget:
-          type: customapi
-          url: http://192.168.68.200:8082/api/stats/summary
-          method: GET
-          headers:
-            X-FTL-SID: rCyKzSeSgKKJBJLq0riPKA=
-          mappings:
-            - field: queries.total
-              label: Queries
-              format: number
-            - field: queries.blocked
-              label: Blocked
-              format: number
-            - field: queries.percent_blocked
-              label: Blocked %
-              format: percent
-            - field: gravity.domains_being_blocked
-              label: Gravity
-              format: number
+          type: pihole
+          url: http://192.168.68.200:8082
+          version: 6
+          key: fancy
 
 - Downloads:
     - qBittorrent:
@@ -112,16 +98,3 @@
           type: changedetectionio
           url: http://192.168.68.200:5000
           key: "9e7a96439671ebc6eb206577144d57d6"
-- Promoții Zalău:
-    - Promotii:
-         href: http://promotii.lan:8001
-         description: Oferte supermarketuri Zalău
-         icon: mdi-tag-multiple
-         widget:
-           type: customapi
-           url: http://promotii-zalau:8000/api/status
-           refreshInterval: 300000   # 5 min
-           mappings:
-             - field: total_products
-               label: Promoții
-               format: number

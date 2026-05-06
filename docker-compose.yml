@@ -2,19 +2,16 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
-    privileged: true
-    user : root
     init: true
     ports:
       - "3000:3000"
     volumes:
       - /home/cristi/server/homepage/config:/app/config
-      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - PUID=1000
       - PGID=1000
       - HOMEPAGE_ALLOWED_HOSTS=homepc.local:3000,homepc.local:3000,192.168.68.200:3000,homepc:3000,homepc.tail1b235c.ts.net:3000,100.113.68.25:3000,localhost:3000
-    restart: unless-stopped 
+    restart: always 
 
   jellyfin:
     image: jellyfin/jellyfin
@@ -24,7 +21,7 @@ services:
       - ./jellyfin:/config
       - ./movies:/media/movies
       - ./series:/media/series
-    restart: unless-stopped
+    restart: always
 
   qbittorrent:
     image: linuxserver/qbittorrent
@@ -39,7 +36,7 @@ services:
       - ./movies:/movies
     ports:
       - 8080:8080
-    restart: unless-stopped
+    restart: always
     dns: 
       - 8.8.8.8
       - 1.1.1.1
@@ -52,8 +49,10 @@ services:
       - NET_RAW
       - CHOWN
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
+      - "192.168.68.200:53:53/tcp"
+      - "100.113.68.25:53:53/tcp"
+      - "192.168.68.200:53:53/udp"
+      - "100.113.68.25:53:53/udp"
       - "8082:80"
     environment:
       - TZ=Europe/Bucharest
@@ -62,12 +61,12 @@ services:
     volumes:
       - /home/cristi/server/pihole/etc-pihole:/etc/pihole
       - /home/cristi/server/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
-    restart: unless-stopped
+    restart: always
 
   cups-airprint:
     image: jdrtronix/cups-hplip:latest
     container_name: cups-airprint
-    restart: unless-stopped
+    restart: always
     network_mode: host
     privileged: true
     devices:
@@ -92,7 +91,7 @@ services:
     image: filebrowser/filebrowser:latest
     container_name: filebrowser
     user: "1000:1000"
-    restart: unless-stopped
+    restart: always
     ports:
       - "8090:80"
     volumes:
@@ -114,7 +113,7 @@ services:
       - TZ=Europe/Bucharest
       - PUID=1000
       - PGID=1000
-    restart: unless-stopped
+    restart: always
 
   changedetection:
     image: dgtlmoon/changedetection.io
@@ -136,7 +135,7 @@ services:
       - ./prowlarr/config:/config
     ports:
       - 9696:9696
-    restart: unless-stopped
+    restart: always
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -151,7 +150,7 @@ services:
       - ./downloads:/downloads
     ports:
       - 7878:7878
-    restart: unless-stopped
+    restart: always
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -166,7 +165,7 @@ services:
       - ./downloads:/downloads
     ports:
       - 8989:8989
-    restart: unless-stopped
+    restart: always
   
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
@@ -181,18 +180,21 @@ services:
       - ./movies:/movies
     ports:
       - 6767:6767
-    restart: unless-stopped
-  promotii-zalau:
-    build: ./promotii-zalau
-    container_name: promotii-zalau
-    ports:
-      - "8001:8000"
-    restart: unless-stopped
+    restart: always
+
+  dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: dockerproxy
+    restart: always
     environment:
-      - PYTHONUNBUFFERED=1
-    healthcheck:
-      test: ["CMD","curl","-f","http://localhost:8000/api/status"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
+      - CONTAINERS=1
+      - SERVICES=1
+      - TASKS=1
+      - NETWORKS=1
+      - VOLUMES=1
+      - INFO=1
+      - POST=0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 127.0.0.1:2375:2375
