@@ -13,7 +13,7 @@ echo "=== Backup pornit la $(date) ===" >> "$LOG_FILE"
 cd /home/cristi || exit 1
 
 # Creeaza arhiva, exclude folderele mari/inutile
-tar czpf "$BACKUP_DIR/docker-config-$DATE.tar.gz" \
+sudo tar czpf "$BACKUP_DIR/docker-config-$DATE.tar.gz" \
   --exclude='server/downloads' \
   --exclude='server/movies' \
   --exclude='server/series' \
@@ -26,6 +26,7 @@ tar czpf "$BACKUP_DIR/docker-config-$DATE.tar.gz" \
   --exclude='server/abs/metadata/cache' \
   --exclude='server/qb-config/qBittorrent/logs' \
   server/ 2>> "$LOG_FILE"
+sudo chown cristi:cristi "$BACKUP_DIR/docker-config-$DATE.tar.gz"
 
 if [ $? -eq 0 ]; then
     SIZE=$(du -h "$BACKUP_DIR/docker-config-$DATE.tar.gz" | cut -f1)
