@@ -79,6 +79,9 @@ services:
     environment:
       - CUPSADMIN=admin
       - CUPSPASSWORD=REDACTED
+      - LANG=ro_RO.UTF-8
+      - LC_ALL=ro_RO.UTF-8
+      - LC_PAPER=ro_RO.UTF-8
     dns:
       - 8.8.8.8
       - 1.1.1.1   
