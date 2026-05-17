@@ -1,19 +1,19 @@
 - Media:
     - Jellyfin:
         icon: jellyfin
-        href: http://jellyfin.lan:8096
+        href: http://192.168.68.200:8096
         server: my-docker
         container: jellyfin
     - Audiobooks:
         icon: audiobookshelf
-        href: http://books.lan:13378
+        href: http://192.168.68.200:13378
         server: my-docker
         container: audiobookshelf
 
 - Network:
     - Pi-hole:
         icon: pi-hole
-        href: http://pihole.lan:8082/admin
+        href: http://192.168.68.200:8082/admin
         server: my-docker
         container: pihole
         widget:
@@ -25,7 +25,7 @@
 - Downloads:
     - qBittorrent:
         icon: qbittorrent
-        href: http://torrent.lan:8080
+        href: http://192.168.68.200:8080
         server: my-docker
         container: qbittorrent
         widget:
@@ -38,7 +38,7 @@
 - Automation:
     - Prowlarr:
         icon: prowlarr
-        href: http://prowlarr.lan:9696
+        href: http://192.168.68.200:9696
         server: my-docker
         container: prowlarr
         widget:
@@ -47,7 +47,7 @@
           key: c98cacee94ad4c358d94fc842eeedeab
     - Radarr:
         icon: radarr
-        href: http://radarr.lan:7878
+        href: http://192.168.68.200:7878
         server: my-docker
         container: radarr
         widget:
@@ -56,7 +56,7 @@
           key: 87146cefaf5347df9d5a9b89aefcb723
     - Sonarr:
         icon: sonarr
-        href: http://sonarr.lan:8989
+        href: http://192.168.68.200:8989
         server: my-docker
         container: sonarr
         widget:
@@ -75,7 +75,7 @@
 - Files:
     - FileBrowser:
         icon: filebrowser
-        href: http://files.lan:8090
+        href: http://192.168.68.200:8090
         server: my-docker
         container: filebrowser
 
@@ -90,7 +90,7 @@
 - Monitorizare Spital:
     - Change Detection:
         icon: changedetection.png
-        href: http://watch.lan:5000
+        href: http://192.168.68.200:5000
         description: Monitorizare Reumatologie
         server: my-docker
         container: changedetection
@@ -98,3 +98,26 @@
           type: changedetectionio
           url: http://192.168.68.200:5000
           key: "9e7a96439671ebc6eb206577144d57d6"
+- Solar:
+    - Home Assistant:
+        icon: home-assistant
+        href: http://192.168.68.200:8123
+        server: my-docker
+        container: homeassistant
+        widget:
+          type: homeassistant
+          url: http://192.168.68.200:8123
+          key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNTQ3ZGU4ZjIwOWM0NTc1OTQ5NGY3ZjcxNmY1MmE3NiIsImlhdCI6MTc3ODgyMjA1MiwiZXhwIjoyMDk0MTgyMDUyfQ.1A1gk7pLMlync03FvQ2aK5HR1wMfJ4J4tY_48GG5eLw"
+          custom:
+            - state: sensor.deye_12kw_invertor_solar_power
+              label: Solar
+              suffix: W
+            - state: sensor.deye_12kw_invertor_battery_soc
+              label: Baterie
+              suffix: "%"
+            - state: sensor.deye_12kw_invertor_house_load
+              label: Consum
+              suffix: W
+            - state: sensor.deye_12kw_invertor_daily_solar
+              label: Azi generat
+              suffix: kWh

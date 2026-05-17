@@ -35,6 +35,8 @@ services:
       - ./downloads:/downloads
       - ./movies:/movies
     ports:
+      - 51413:51413/tcp
+      - 51413:51413/udp
       - 8080:8080
     restart: always
     dns: 
@@ -201,3 +203,47 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - 127.0.0.1:2375:2375
+
+  # ── MQTT Broker ─────────────────────────────────────────
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto
+    restart: always
+    ports:
+      - 1883:1883
+    volumes:
+      - /home/cristi/server/mosquitto/config:/mosquitto/config:ro
+      - /home/cristi/server/mosquitto/data:/mosquitto/data
+      - /home/cristi/server/mosquitto/log:/mosquitto/log
+  # ── Home Assistant Core ──────────────────────────────────
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    restart: always
+    privileged: true
+    network_mode: host          # necesar pentru mDNS discovery și acces MQTT local
+    environment:
+      - TZ=Europe/Bucharest
+    volumes:
+      - /home/cristi/server/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - mosquitto
+  # ── Deye Mock Logger ─────────────────────────────────────
+  # Simulează logger-ul WiFi SolarmanV5 al invertorului Deye 12kW.
+  # Publică date realiste pe MQTT la fiecare 5 secunde.
+  # Când vine logger-ul fizic → comentezi/ștergi acest bloc
+  # și adaugi integrarea pysolarmanv5 din HACS în Home Assistant.
+  deye-mock:
+    build:
+      context: /home/cristi/server/deye-mock
+      dockerfile: Dockerfile
+    container_name: deye-mock
+    restart: always
+    environment:
+      - MQTT_HOST=mosquitto
+      - MQTT_PORT=1883
+      - INTERVAL=5               # secunde între publish-uri
+      - TOPIC_PREFIX=deye/sensor
+    depends_on:
+      - mosquitto
