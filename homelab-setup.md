@@ -222,6 +222,70 @@ La `http://192.168.68.200:8123/config/energy`:
 
 În `services.yaml` sub categoria `- Solar:`, type=`homeassistant`, cu `key:` (long-lived access token) și custom states pentru: PV power, baterie SOC, consum casă, producție azi.
 
+### Economii & ROI tracking
+
+**Tarife configurate (în `configuration.yaml`):**
+- Consum: `1.10 RON/kWh` (preț final cu TVA, distribuție, taxe)
+- Export (feed-in prosumer): `0.40 RON/kWh`
+
+**Senzori cost zilnic (template sensors):**
+
+| Senzor | Calcul | Rol |
+|---|---|---|
+| `sensor.cost_evitat_azi` | `(production - export) × 1.10` | Cât NU plătești pentru consum direct din PV |
+| `sensor.castig_export_azi` | `export × 0.40` | Câștig din vânzarea surplusului |
+| `sensor.economie_totala_azi` | suma celor doi | Economie totală zilnică |
+
+**Utility Meter (agregare lunară/anuală/lifetime):**
+
+```yaml
+utility_meter:
+  productie_lunara:   { source: sensor.deye_today_production, cycle: monthly }
+  productie_anuala:   { source: sensor.deye_today_production, cycle: yearly }
+  consum_lunar:       { source: sensor.deye_today_load_consumption, cycle: monthly }
+  consum_anual:       { source: sensor.deye_today_load_consumption, cycle: yearly }
+  import_lunar:       { source: sensor.deye_today_energy_import, cycle: monthly }
+  export_lunar:       { source: sensor.deye_today_energy_export, cycle: monthly }
+  export_anual:       { source: sensor.deye_today_energy_export, cycle: yearly }
+  recuperat_total:    { source: sensor.economie_totala_azi, cycle: yearly }  # cumulator economii
+```
+
+⚠️ **Cunoscut:** utility_meter contorizează doar de la momentul creării, nu istoric. Pentru calibrare (după prima zi), folosește API call:
+```bash
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"entity_id": "sensor.recuperat_lifetime", "value": "40"}' \
+  http://192.168.68.200:8123/api/services/utility_meter/calibrate
+```
+
+### ROI tracker
+
+Sistemul fotovoltaic a costat **42.000 RON** (panouri + invertor Deye 12kW + baterie 15kWh + montaj).
+
+**Template sensors pentru amortizare:**
+
+| Senzor | Formula | Valoare inițială (19 mai) |
+|---|---|---|
+| `sensor.investitie_initiala` | constantă | 42.000 RON |
+| `sensor.recuperat_lifetime` | utility_meter cu cycle yearly | calibrat la 40 RON |
+| `sensor.ramas_de_recuperat` | investitie - recuperat | 41.960 RON |
+| `sensor.procent_amortizat` | recuperat / investitie × 100 | 0.1% |
+| `sensor.economie_medie_zilnica` | recuperat / (days since 18.05.2026) | ~25 RON/zi |
+| `sensor.zile_pana_amortizare` | ramas / medie_zilnica | ~1670 zile |
+| `sensor.ani_pana_amortizare` | zile / 365 | **~4.6 ani** 🎯 |
+| `sensor.viata_baterie_ramasa` | (6000 - cicluri) / 6000 × 100 | 100% (rating 6000 cicluri) |
+
+⚠️ Estimările sunt imprecise primele 2-3 săptămâni. Apoi `economie_medie_zilnica` converge spre realitate (~25-35 RON/zi medie anuală, în funcție de sezoane).
+
+### Dashboard "Solar" (Lovelace)
+
+Dashboard nou creat la `http://192.168.68.200:8123/solar`. Sections mode cu carduri:
+
+1. **Economii Solar** — economie azi, lună, an, cost evitat, câștig export
+2. **Producție & Consum** — kWh produs/consumat/exportat luna și anul
+3. **Live acum** — glance card cu PV (W), Baterie (%), Consum (W), Grid (W), Bat (W)
+4. **ROI - Amortizare** — investiție, recuperat, rămas, % amortizat, medie zilnică, ani până amortizare, viață baterie
+
 ### Istoric — mock removed (15-19 mai 2026)
 
 Între 15-19 mai a existat un setup mock în `/home/cristi/server/deye-mock/` care simula invertorul pe MQTT cu container Docker `deye-mock` și script Python `mock_logger.py`. Eliminat complet pe 19 mai după ce logger-ul fizic LSW-5 a sosit:
@@ -415,6 +479,6 @@ http://100.113.68.25:3000   # IP Tailscale direct
 ---
 
 **Document creat după sesiunea de configurare 28 aprilie 2026.**
-**Actualizat 19 mai 2026** — adăugat Home Assistant, Mosquitto, integrare Solarman pentru invertor Deye 12kW, plus containere Bazarr și Docker socket proxy.
+**Actualizat 19 mai 2026** — adăugat Home Assistant, Mosquitto, integrare Solarman pentru invertor Deye 12kW, plus containere Bazarr și Docker socket proxy. Sesiune extinsă: template sensors pentru economii (1.10 RON/kWh consum, 0.40 RON/kWh export), utility_meter pentru agregare lunară/anuală, ROI tracker cu estimare 4.6 ani amortizare, dashboard "Solar" cu 4 carduri Lovelace.
 
 Pentru actualizări viitoare, modifică acest fișier.
