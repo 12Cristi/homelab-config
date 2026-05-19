@@ -1,7 +1,7 @@
 # Homelab Setup — homepc
 
 Document de referință pentru serverul Ubuntu cu Docker stack.
-Ultima actualizare: **28 aprilie 2026**.
+Ultima actualizare: **19 mai 2026**.
 
 ## Hardware
 
@@ -18,7 +18,7 @@ Ultima actualizare: **28 aprilie 2026**.
 
 Verdict utilizare: ~7% CPU, ~38% RAM, 27% disk. Multă rezervă pentru viitor.
 
-## Containere Docker (11)
+## Containere Docker (15)
 
 | Container | Imagine | Port | Hostname local | Acces |
 |---|---|---|---|---|
@@ -33,6 +33,11 @@ Verdict utilizare: ~7% CPU, ~38% RAM, 27% disk. Multă rezervă pentru viitor.
 | **sonarr** | lscr.io/linuxserver/sonarr:latest | 8989 | `sonarr.lan` | TV automation |
 | **radarr** | lscr.io/linuxserver/radarr:latest | 7878 | `radarr.lan` | Movie automation |
 | **cups-airprint** | jdrtronix/cups-hplip:latest | (host network) 631 | `print.lan` | Print server |
+
+| **homeassistant** | ghcr.io/home-assistant/home-assistant:stable | (host network) 8123 | `ha.lan` | Home automation + monitorizare solară |
+| **mosquitto** | eclipse-mosquitto:2 | 1883, 9001 | — | MQTT broker (intern, pentru HA + integrări) |
+| **bazarr** | lscr.io/linuxserver/bazarr | 6767 | `bazarr.lan` | Subtitle automation |
+| **dockerproxy** | ghcr.io/tecnativa/docker-socket-proxy:latest | 2375 (intern) | — | Acces sigur la Docker socket pentru homepage |
 
 Imprimanta configurată: **HP LaserJet M101-M106** (queue: `HP_LaserJet_M101-M106`, driver hpcups).
 
@@ -96,7 +101,8 @@ Setat prin `pihole-FTL --config dns.hosts`. Toate hostname-urile pointează la 1
 ```
 homepc, home.lan, jellyfin.lan, pihole.lan,
 torrent.lan, books.lan, files.lan, watch.lan,
-prowlarr.lan, sonarr.lan, radarr.lan, print.lan
+prowlarr.lan, sonarr.lan, radarr.lan, print.lan,
+bazarr.lan, ha.lan
 ```
 
 ## Docker daemon config
@@ -146,6 +152,88 @@ Servicii systemd:
 Widget homepage folosește `customapi` cu SID auto-regenerat la 25 min via cron.
 Motiv: bug-ul în homepage 1.12.3 + Pi-hole 6.4.2 — widget-ul nativ pierde sesiunea după ~16 request-uri.
 Când va apărea fix în homepage, se poate reveni la widget native.
+
+
+## Home Assistant + monitorizare solară
+
+**Adăugat 19 mai 2026.** Stack: Home Assistant Core + Mosquitto MQTT + integrare Solarman pentru invertor Deye SUN-12K-SG04LP3.
+
+### Hardware fotovoltaic
+
+| | |
+|---|---|
+| **Invertor** | Deye SUN-12K-SG04LP3 (12 kW hybrid) |
+| **Logger** | LSW-5 (Solarman WiFi stick) la `192.168.68.101:8899` |
+| **Locație** | Garaj |
+
+### Integrare
+
+Instalată via HACS: `custom_components/solarman/` (StephanJoubert/home_assistant_solarman).
+
+Config entry: host=`192.168.68.101`, port=`8899`, profile=Deye Hybrid.
+Rezultat: ~90 senzori reali cu prefix `sensor.deye_*`.
+
+### Senzori critici pentru Energy Dashboard
+
+| Senzor | Unitate | Rol |
+|---|---|---|
+| `sensor.deye_today_production` | kWh | Solar production |
+| `sensor.deye_today_energy_import` | kWh | Grid consumption |
+| `sensor.deye_today_energy_export` | kWh | Return to grid |
+| `sensor.deye_today_battery_charge` | kWh | Battery IN |
+| `sensor.deye_today_battery_discharge` | kWh | Battery OUT |
+| `sensor.deye_pv_power` | W | Producție live |
+| `sensor.deye_battery` | % | SOC live |
+| `sensor.deye_load_power` | W | Consum casă live |
+| `sensor.deye_grid_power` | W | Negativ=import, pozitiv=export |
+| `sensor.deye_battery_power` | W | Negativ=charge, pozitiv=discharge |
+
+### Template sensors (în `configuration.yaml`)
+
+Convertesc senzorii cu semn în senzori unidirecționali, pentru dashboard-uri și widget homepage:
+- `sensor.grid_import_power`, `sensor.grid_export_power` (din `deye_grid_power`)
+- `sensor.battery_charging_power`, `sensor.battery_discharging_power` (din `deye_battery_power`)
+
+### Recorder configurat cu globs
+
+```yaml
+recorder:
+  purge_keep_days: 90
+  include:
+    entity_globs:
+      - sensor.deye_*
+    entities:
+      - sensor.grid_import_power
+      - sensor.grid_export_power
+      - sensor.battery_charging_power
+      - sensor.battery_discharging_power
+```
+
+### Energy Dashboard mapping
+
+La `http://192.168.68.200:8123/config/energy`:
+- **Grid consumption**: `sensor.deye_today_energy_import`
+- **Return to grid**: `sensor.deye_today_energy_export`
+- **Solar production**: `sensor.deye_today_production`
+- **Battery IN**: `sensor.deye_today_battery_charge`
+- **Battery OUT**: `sensor.deye_today_battery_discharge`
+
+### Widget pe homepage
+
+În `services.yaml` sub categoria `- Solar:`, type=`homeassistant`, cu `key:` (long-lived access token) și custom states pentru: PV power, baterie SOC, consum casă, producție azi.
+
+### Istoric — mock removed (15-19 mai 2026)
+
+Între 15-19 mai a existat un setup mock în `/home/cristi/server/deye-mock/` care simula invertorul pe MQTT cu container Docker `deye-mock` și script Python `mock_logger.py`. Eliminat complet pe 19 mai după ce logger-ul fizic LSW-5 a sosit:
+
+- Container Docker oprit și șters
+- Folder `deye-mock/` arhivat la `/home/cristi/deye-mock-backup-20260519.tar.gz` și șters
+- Retained MQTT messages curățate (homeassistant/sensor/deye_mock/*, deye/sensor/*)
+- Device-ul `Deye 12kW Invertor` (MQTT Discovery) șters din HA UI
+- Statistici contaminate șterse din DB (~5060 puncte, ~5 MB recuperați)
+- `configuration.yaml` refactorizat de pe `sensor.deye_12kw_invertor_*` (mock) pe `sensor.deye_*` (real)
+
+**Important**: senzorii `sensor.deye_12kw_invertor_*` NU mai există. Toate referințele trebuie să folosească prefixul `sensor.deye_*`.
 
 ## Backup
 
@@ -286,6 +374,8 @@ cat ~/scripts/pihole-sid.log                            # Vezi istoric
 3. **iPhone nu vede AirPrint prin Tailscale** — necesită app plătit (Printer Pro $7) sau alt workaround
 4. **systemd "Failed to connect to API bus"** la boot — bug cosmetic Ubuntu 24.04, ignorat
 5. **CGroup v1 deprecation warning** — Docker, deadline 2029
+6. **Bluetooth scanner errors în HA** — `hci0 Failed to force stop scanner` apare repetat în logs. Bug cunoscut `habluetooth` pe adapter Foxconn integrat în homepc. Dezactivează din Settings → Devices & Services → Bluetooth dacă nu folosești BT
+7. **Mock solar removed** — senzorii vechi `sensor.deye_12kw_invertor_*` nu mai există (vezi secțiunea Home Assistant)
 
 ## Acces servicii — quick reference
 
@@ -302,6 +392,8 @@ http://prowlarr.lan:9696    # Prowlarr
 http://sonarr.lan:8989      # Sonarr
 http://radarr.lan:7878      # Radarr
 http://print.lan:631        # CUPS
+http://ha.lan:8123          # Home Assistant (solar monitoring)
+http://bazarr.lan:6767      # Bazarr
 ```
 
 ### Prin Tailscale (oriunde)
@@ -314,6 +406,7 @@ http://100.113.68.25:3000   # IP Tailscale direct
 
 ### Login credențiale (pentru tine, nu pentru repo)
 - **Pi-hole**: `fancy`
+- **Home Assistant**: cont creat la primul login UI; long-lived token salvat în homepage `services.yaml`
 - **qBittorrent**: `admin / admin123`
 - **CUPS admin**: `admin / YourStrongPassword123!`
 - **Filebrowser**: vezi `filebrowser.db` sau crează nou prin CLI
@@ -322,4 +415,6 @@ http://100.113.68.25:3000   # IP Tailscale direct
 ---
 
 **Document creat după sesiunea de configurare 28 aprilie 2026.**
+**Actualizat 19 mai 2026** — adăugat Home Assistant, Mosquitto, integrare Solarman pentru invertor Deye 12kW, plus containere Bazarr și Docker socket proxy.
+
 Pentru actualizări viitoare, modifică acest fișier.
