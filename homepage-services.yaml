@@ -20,7 +20,6 @@
           type: pihole
           url: http://192.168.68.200:8082
           version: 6
-          key: fancy
 
 - Downloads:
     - qBittorrent:
@@ -98,7 +97,7 @@
           type: changedetectionio
           url: http://192.168.68.200:5000
           key: "9e7a96439671ebc6eb206577144d57d6"
-- Solar:
+- Smart Home:
     - Home Assistant:
         icon: home-assistant
         href: http://192.168.68.200:8123
@@ -109,15 +108,21 @@
           url: http://192.168.68.200:8123
           key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNTQ3ZGU4ZjIwOWM0NTc1OTQ5NGY3ZjcxNmY1MmE3NiIsImlhdCI6MTc3ODgyMjA1MiwiZXhwIjoyMDk0MTgyMDUyfQ.1A1gk7pLMlync03FvQ2aK5HR1wMfJ4J4tY_48GG5eLw"
           custom:
-            - state: sensor.deye_12kw_invertor_solar_power
+            - state: sensor.deye_pv_power
               label: Solar
               suffix: W
-            - state: sensor.deye_12kw_invertor_battery_soc
+            - state: sensor.deye_battery
               label: Baterie
               suffix: "%"
-            - state: sensor.deye_12kw_invertor_house_load
-              label: Consum
-              suffix: W
-            - state: sensor.deye_12kw_invertor_daily_solar
+            - state: sensor.economie_totala_azi
+              label: Economie
+              suffix: " RON"
+            - state: sensor.deye_today_production
               label: Azi generat
               suffix: kWh
+    - Zigbee2MQTT:
+        icon: zigbee2mqtt
+        href: http://192.168.68.200:8099
+        server: my-docker
+        container: zigbee2mqtt
+        description: Zigbee coordinator (Sonoff MG24)

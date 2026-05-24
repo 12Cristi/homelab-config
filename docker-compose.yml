@@ -58,7 +58,6 @@ services:
       - "8082:80"
     environment:
       - TZ=Europe/Bucharest
-      - FTLCONF_webserver_api_password=REDACTED
       - FTLCONF_webserver_api_cli_pw=false
     volumes:
       - /home/cristi/server/pihole/etc-pihole:/etc/pihole
@@ -80,6 +79,7 @@ services:
       - /dev:/dev
     environment:
       - CUPSADMIN=admin
+      - FTLCONF_webserver_api_password=REDACTED
       - CUPSPASSWORD=REDACTED
       - LANG=ro_RO.UTF-8
       - LC_ALL=ro_RO.UTF-8
@@ -227,23 +227,24 @@ services:
     volumes:
       - /home/cristi/server/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
+    devices:
+      - /dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_3cde9ae64ca3ef11968046bd61ce3355-if00-port0:/dev/ttyUSB0
     depends_on:
       - mosquitto
-  # ── Deye Mock Logger ─────────────────────────────────────
-  # Simulează logger-ul WiFi SolarmanV5 al invertorului Deye 12kW.
-  # Publică date realiste pe MQTT la fiecare 5 secunde.
-  # Când vine logger-ul fizic → comentezi/ștergi acest bloc
-  # și adaugi integrarea pysolarmanv5 din HACS în Home Assistant.
-  deye-mock:
-    build:
-      context: /home/cristi/server/deye-mock
-      dockerfile: Dockerfile
-    container_name: deye-mock
+
+
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt:latest
+    container_name: zigbee2mqtt
     restart: always
+    volumes:
+      - /home/cristi/server/zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    ports:
+      - "8099:8080"
+    devices:
+      - /dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_3cde9ae64ca3ef11968046bd61ce3355-if00-port0:/dev/ttyUSB0
     environment:
-      - MQTT_HOST=mosquitto
-      - MQTT_PORT=1883
-      - INTERVAL=5               # secunde între publish-uri
-      - TOPIC_PREFIX=deye/sensor
+      - TZ=Europe/Bucharest
     depends_on:
       - mosquitto
