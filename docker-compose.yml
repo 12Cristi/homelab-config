@@ -58,7 +58,7 @@ services:
       - "8082:80"
     environment:
       - TZ=Europe/Bucharest
-      - FTLCONF_webserver_api_cli_pw=false
+      - FTLCONF_webserver_api_password=REDACTED
     volumes:
       - /home/cristi/server/pihole/etc-pihole:/etc/pihole
       - /home/cristi/server/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
@@ -79,7 +79,6 @@ services:
       - /dev:/dev
     environment:
       - CUPSADMIN=admin
-      - FTLCONF_webserver_api_password=REDACTED
       - CUPSPASSWORD=REDACTED
       - LANG=ro_RO.UTF-8
       - LC_ALL=ro_RO.UTF-8

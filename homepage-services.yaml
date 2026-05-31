@@ -20,6 +20,7 @@
           type: pihole
           url: http://192.168.68.200:8082
           version: 6
+          password: admin
 
 - Downloads:
     - qBittorrent:
