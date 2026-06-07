@@ -99,28 +99,49 @@
           url: http://192.168.68.200:5000
           key: "9e7a96439671ebc6eb206577144d57d6"
 - Smart Home:
-    - Home Assistant:
+    - Solar live:
         icon: home-assistant
         href: http://192.168.68.200:8123
+        description: Putere instant
         server: my-docker
         container: homeassistant
         widget:
           type: homeassistant
-          url: http://192.168.68.200:8123
+          url: http://host.docker.internal:8123
           key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNTQ3ZGU4ZjIwOWM0NTc1OTQ5NGY3ZjcxNmY1MmE3NiIsImlhdCI6MTc3ODgyMjA1MiwiZXhwIjoyMDk0MTgyMDUyfQ.1A1gk7pLMlync03FvQ2aK5HR1wMfJ4J4tY_48GG5eLw"
           custom:
             - state: sensor.deye_pv_power
-              label: Solar
-              suffix: W
+              label: ☀️ Solar
+              suffix: " W"
             - state: sensor.deye_battery
-              label: Baterie
+              label: 🔋 Baterie
               suffix: "%"
-            - state: sensor.economie_totala_azi
-              label: Economie
-              suffix: " RON"
+            - state: sensor.deye_grid_power
+              label: 🔌 Grid
+              suffix: " W"
+            - state: sensor.deye_device_state
+              label: ⚙️ Stare
+    - Energie azi:
+        icon: mdi-chart-line
+        href: http://192.168.68.200:8123
+        description: Producție și consum
+        widget:
+          type: homeassistant
+          url: http://host.docker.internal:8123
+          key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNTQ3ZGU4ZjIwOWM0NTc1OTQ5NGY3ZjcxNmY1MmE3NiIsImlhdCI6MTc3ODgyMjA1MiwiZXhwIjoyMDk0MTgyMDUyfQ.1A1gk7pLMlync03FvQ2aK5HR1wMfJ4J4tY_48GG5eLw"
+          custom:
             - state: sensor.deye_today_production
-              label: Azi generat
-              suffix: kWh
+              label: 📊 Producție
+              suffix: " kWh"
+            - state: sensor.deye_today_load_consumption
+              label: 🏠 Consum
+              suffix: " kWh"
+            - state: sensor.deye_today_energy_export
+              label: ⬆️ Export
+              suffix: " kWh"
+            - state: sensor.energy_production_today_remaining
+              label: 🔮 Rămas estimat
+              suffix: " kWh"
     - Zigbee2MQTT:
         icon: zigbee2mqtt
         href: http://192.168.68.200:8099

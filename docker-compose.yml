@@ -11,6 +11,8 @@ services:
       - PUID=1000
       - PGID=1000
       - HOMEPAGE_ALLOWED_HOSTS=homepc.local:3000,homepc.local:3000,192.168.68.200:3000,homepc:3000,homepc.tail1b235c.ts.net:3000,100.113.68.25:3000,localhost:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: always 
 
   jellyfin:
@@ -226,8 +228,6 @@ services:
     volumes:
       - /home/cristi/server/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
-    devices:
-      - /dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_3cde9ae64ca3ef11968046bd61ce3355-if00-port0:/dev/ttyUSB0
     depends_on:
       - mosquitto
 
@@ -241,8 +241,6 @@ services:
       - /run/udev:/run/udev:ro
     ports:
       - "8099:8080"
-    devices:
-      - /dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_3cde9ae64ca3ef11968046bd61ce3355-if00-port0:/dev/ttyUSB0
     environment:
       - TZ=Europe/Bucharest
     depends_on:
