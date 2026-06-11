@@ -148,3 +148,16 @@
         server: my-docker
         container: zigbee2mqtt
         description: Zigbee coordinator (Sonoff MG24)
+
+- Management:
+    - Portainer:
+        icon: portainer.png
+        href: http://192.168.68.200:9000
+        description: Docker management
+        server: my-docker
+        container: portainer
+        widget:
+          type: portainer
+          url: http://host.docker.internal:9000
+          env: 3
+          key: ptr_LmMp81Hn1kBhrb7kKERjzz8s+sGFCUJb6R6ye7CUUxk=

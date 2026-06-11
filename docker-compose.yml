@@ -245,3 +245,16 @@ services:
       - TZ=Europe/Bucharest
     depends_on:
       - mosquitto
+
+  # ── Portainer (Docker management UI) ─────────────────────
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/cristi/server/portainer/data:/data
+    environment:
+      - TZ=Europe/Bucharest
