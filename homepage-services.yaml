@@ -1,19 +1,43 @@
-- Media:
-    - Jellyfin:
-        icon: jellyfin
-        href: http://192.168.68.200:8096
+- Smart Home:
+    - Solar live:
+        icon: home-assistant
+        href: http://192.168.68.200:8123/dashboard-solar/0
+        description: Putere instant
         server: my-docker
-        container: jellyfin
-    - Audiobooks:
-        icon: audiobookshelf
-        href: http://192.168.68.200:13378
+        container: homeassistant
+        widget:
+          type: homeassistant
+          url: http://host.docker.internal:8123
+          key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNTQ3ZGU4ZjIwOWM0NTc1OTQ5NGY3ZjcxNmY1MmE3NiIsImlhdCI6MTc3ODgyMjA1MiwiZXhwIjoyMDk0MTgyMDUyfQ.1A1gk7pLMlync03FvQ2aK5HR1wMfJ4J4tY_48GG5eLw"
+          custom:
+            - state: sensor.deye_pv_power
+              label: ☀️ Solar
+              suffix: " W"
+            - state: sensor.deye_battery
+              label: 🔋 Baterie
+              suffix: "%"
+            - state: sensor.deye_grid_power
+              label: 🔌 Grid
+              suffix: " W"
+            - state: sensor.deye_device_state
+              label: ⚙️ Stare
+    - Portainer:
+        icon: portainer.png
+        href: http://192.168.68.200:9000
+        description: Docker management
         server: my-docker
-        container: audiobookshelf
+        container: portainer
+        widget:
+          type: portainer
+          url: http://host.docker.internal:9000
+          env: 3
+          key: ptr_LmMp81Hn1kBhrb7kKERjzz8s+sGFCUJb6R6ye7CUUxk=
 
-- Network:
+- Utility:
     - Pi-hole:
         icon: pi-hole
-        href: http://192.168.68.200:8082/admin
+        href: http://192.168.68.200:8082/admin/dashboard
+        description: DNS filtering
         server: my-docker
         container: pihole
         widget:
@@ -21,11 +45,11 @@
           url: http://192.168.68.200:8082
           version: 6
           password: admin
-
-- Downloads:
+          fields: ["queries", "blocked", "blocked_percent"]
     - qBittorrent:
         icon: qbittorrent
         href: http://192.168.68.200:8080
+        description: Torrent client
         server: my-docker
         container: qbittorrent
         widget:
@@ -33,7 +57,33 @@
           url: http://192.168.68.200:8080
           username: admin
           password: REDACTED
+          fields: ["download", "seed", "upload"]
+    - FileBrowser:
+        icon: filebrowser
+        href: http://192.168.68.200:8090
+        description: Web file manager
+        server: my-docker
+        container: filebrowser
+    - CUPS:
+        icon: cups
+        href: http://192.168.68.200:631
+        description: Imprimanta AirPrint
+        server: my-docker
+        container: cups-airprint
 
+- Media:
+    - Jellyfin:
+        icon: jellyfin
+        href: http://192.168.68.200:8096
+        description: Filme & seriale
+        server: my-docker
+        container: jellyfin
+    - Audiobooks:
+        icon: audiobookshelf
+        href: http://192.168.68.200:13378
+        description: Audiobookshelf
+        server: my-docker
+        container: audiobookshelf
 
 - Automation:
     - Prowlarr:
@@ -71,21 +121,7 @@
         widget:
           type: bazarr
           url: http://192.168.68.200:6767
-          key: a856c742181fdd3950251dc0569eaacb 
-- Files:
-    - FileBrowser:
-        icon: filebrowser
-        href: http://192.168.68.200:8090
-        server: my-docker
-        container: filebrowser
-
-- Printing:
-    - CUPS:
-        icon: cups
-        href: http://192.168.68.200:631
-        description: Imprimanta AirPrint
-        server: my-docker
-        container: cups-airprint
+          key: a856c742181fdd3950251dc0569eaacb
 
 - Monitorizare Spital:
     - Change Detection:
@@ -98,66 +134,11 @@
           type: changedetectionio
           url: http://192.168.68.200:5000
           key: "9e7a96439671ebc6eb206577144d57d6"
-- Smart Home:
-    - Solar live:
-        icon: home-assistant
-        href: http://192.168.68.200:8123
-        description: Putere instant
-        server: my-docker
-        container: homeassistant
-        widget:
-          type: homeassistant
-          url: http://host.docker.internal:8123
-          key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNTQ3ZGU4ZjIwOWM0NTc1OTQ5NGY3ZjcxNmY1MmE3NiIsImlhdCI6MTc3ODgyMjA1MiwiZXhwIjoyMDk0MTgyMDUyfQ.1A1gk7pLMlync03FvQ2aK5HR1wMfJ4J4tY_48GG5eLw"
-          custom:
-            - state: sensor.deye_pv_power
-              label: ☀️ Solar
-              suffix: " W"
-            - state: sensor.deye_battery
-              label: 🔋 Baterie
-              suffix: "%"
-            - state: sensor.deye_grid_power
-              label: 🔌 Grid
-              suffix: " W"
-            - state: sensor.deye_device_state
-              label: ⚙️ Stare
-    - Energie azi:
-        icon: mdi-chart-line
-        href: http://192.168.68.200:8123
-        description: Producție și consum
-        widget:
-          type: homeassistant
-          url: http://host.docker.internal:8123
-          key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNTQ3ZGU4ZjIwOWM0NTc1OTQ5NGY3ZjcxNmY1MmE3NiIsImlhdCI6MTc3ODgyMjA1MiwiZXhwIjoyMDk0MTgyMDUyfQ.1A1gk7pLMlync03FvQ2aK5HR1wMfJ4J4tY_48GG5eLw"
-          custom:
-            - state: sensor.deye_today_production
-              label: 📊 Producție
-              suffix: " kWh"
-            - state: sensor.deye_today_load_consumption
-              label: 🏠 Consum
-              suffix: " kWh"
-            - state: sensor.deye_today_energy_export
-              label: ⬆️ Export
-              suffix: " kWh"
-            - state: sensor.energy_production_today_remaining
-              label: 🔮 Rămas estimat
-              suffix: " kWh"
+
+- Management:
     - Zigbee2MQTT:
         icon: zigbee2mqtt
         href: http://192.168.68.200:8099
+        description: Oprit — hardware EOL
         server: my-docker
         container: zigbee2mqtt
-        description: Zigbee coordinator (Sonoff MG24)
-
-- Management:
-    - Portainer:
-        icon: portainer.png
-        href: http://192.168.68.200:9000
-        description: Docker management
-        server: my-docker
-        container: portainer
-        widget:
-          type: portainer
-          url: http://host.docker.internal:9000
-          env: 3
-          key: ptr_LmMp81Hn1kBhrb7kKERjzz8s+sGFCUJb6R6ye7CUUxk=
