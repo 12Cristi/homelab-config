@@ -1,0 +1,14 @@
+network:
+  version: 2
+  ethernets:
+    eno1:
+      dhcp4: no
+      addresses:
+        - 192.168.68.200/24
+      routes:
+        - to: default
+          via: 192.168.68.1
+      nameservers:
+        addresses:
+          - 127.0.0.1
+          - 1.1.1.1

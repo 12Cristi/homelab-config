@@ -21,17 +21,6 @@
               suffix: " W"
             - state: sensor.deye_device_state
               label: ⚙️ Stare
-    - Portainer:
-        icon: portainer.png
-        href: http://192.168.68.200:9000
-        description: Docker management
-        server: my-docker
-        container: portainer
-        widget:
-          type: portainer
-          url: http://host.docker.internal:9000
-          env: 3
-          key: ptr_LmMp81Hn1kBhrb7kKERjzz8s+sGFCUJb6R6ye7CUUxk=
 
 - Utility:
     - Pi-hole:
@@ -60,14 +49,14 @@
           fields: ["download", "seed", "upload"]
     - FileBrowser:
         icon: filebrowser
-        href: http://192.168.68.200:8090
+        href: http://192.168.68.200:8091
         description: Web file manager
         server: my-docker
         container: filebrowser
     - CUPS:
         icon: cups
         href: http://192.168.68.200:631
-        description: Imprimanta AirPrint
+        description: Print & AirScan
         server: my-docker
         container: cups-airprint
 
@@ -78,50 +67,18 @@
         description: Filme & seriale
         server: my-docker
         container: jellyfin
+    - Jellyseerr:
+        icon: jellyseerr
+        href: http://192.168.68.200:5055
+        description: Cereri filme & seriale
+        server: my-docker
+        container: jellyseerr
     - Audiobooks:
         icon: audiobookshelf
         href: http://192.168.68.200:13378
         description: Audiobookshelf
         server: my-docker
         container: audiobookshelf
-
-- Automation:
-    - Prowlarr:
-        icon: prowlarr
-        href: http://192.168.68.200:9696
-        server: my-docker
-        container: prowlarr
-        widget:
-          type: prowlarr
-          url: http://192.168.68.200:9696
-          key: c98cacee94ad4c358d94fc842eeedeab
-    - Radarr:
-        icon: radarr
-        href: http://192.168.68.200:7878
-        server: my-docker
-        container: radarr
-        widget:
-          type: radarr
-          url: http://192.168.68.200:7878
-          key: 87146cefaf5347df9d5a9b89aefcb723
-    - Sonarr:
-        icon: sonarr
-        href: http://192.168.68.200:8989
-        server: my-docker
-        container: sonarr
-        widget:
-          type: sonarr
-          url: http://192.168.68.200:8989
-          key: 4c0d31d9840c47179481959c5c224946
-    - Bazarr:
-        icon: bazarr
-        href: http://192.168.68.200:6767
-        server: my-docker
-        container: bazarr
-        widget:
-          type: bazarr
-          url: http://192.168.68.200:6767
-          key: a856c742181fdd3950251dc0569eaacb
 
 - Monitorizare Spital:
     - Change Detection:
@@ -139,6 +96,17 @@
     - Zigbee2MQTT:
         icon: zigbee2mqtt
         href: http://192.168.68.200:8099
-        description: Oprit — hardware EOL
+        description: Coordinator Zigbee activ
         server: my-docker
         container: zigbee2mqtt
+    - Portainer:
+        icon: portainer.png
+        href: http://192.168.68.200:9000
+        description: Docker management
+        server: my-docker
+        container: portainer
+        widget:
+          type: portainer
+          url: http://host.docker.internal:9000
+          env: 3
+          key: REDACTED

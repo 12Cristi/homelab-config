@@ -1,0 +1,26 @@
+title: Home Dashboard
+favicon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/home-assistant.png
+
+view: lg
+cardSize: small
+statusStyle: dot
+headerStyle: underlined
+
+layout:
+  Smart Home:
+    style: row
+    columns: 2
+  Utility:
+    style: row
+    columns: 4
+  Media:
+    style: row
+    columns: 3
+  Monitorizare Spital:
+    style: column
+  Management:
+    style: row
+    columns: 2
+
+appearance:
+  layout: fluid

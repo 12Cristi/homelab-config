@@ -1,0 +1,17 @@
+[Unit]
+Description=qBittorrent downloads ClamAV watcher
+After=docker.service network.target
+Requires=docker.service
+BindsTo=docker.service
+PartOf=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/qbit-watch.sh
+Restart=always
+RestartSec=10
+User=cristi
+Group=cristi
+
+[Install]
+WantedBy=multi-user.target

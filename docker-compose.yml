@@ -99,7 +99,7 @@ services:
     user: "1000:1000"
     restart: always
     ports:
-      - "8090:80"
+      - "8091:80"
     volumes:
       - /home/cristi/server:/srv
       - /home/cristi/server/filebrowser.db:/database.db
@@ -239,6 +239,8 @@ services:
     volumes:
       - /home/cristi/server/zigbee2mqtt:/app/data
       - /run/udev:/run/udev:ro
+    devices:
+      - /dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_3cde9ae64ca3ef11968046bd61ce3355-if00-port0:/dev/ttyUSB0
     ports:
       - "8099:8080"
     environment:
@@ -258,3 +260,35 @@ services:
       - /home/cristi/server/portainer/data:/data
     environment:
       - TZ=Europe/Bucharest
+
+  # ── ClamAV (antivirus resident, scan via clamd socket) ───
+  clamav:
+    image: clamav/clamav:stable
+    container_name: clamav
+    restart: always
+    volumes:
+      - /home/cristi/server/clamav/db:/var/lib/clamav
+      - /home/cristi/server/downloads:/scan:ro
+    environment:
+      - TZ=Europe/Bucharest
+      - CLAMAV_NO_MILTERD=true
+      - CLAMAV_NO_FRESHCLAMD=false
+      - FRESHCLAM_CHECKS=2
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/clamdcheck.sh"]
+      interval: 60s
+      retries: 3
+      start_period: 5m
+
+  # ── Jellyseerr (request UI pentru Sonarr + Radarr) ───────
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: always
+    ports:
+      - "5055:5055"
+    environment:
+      - TZ=Europe/Bucharest
+      - LOG_LEVEL=info
+    volumes:
+      - /home/cristi/server/jellyseerr/config:/app/config
