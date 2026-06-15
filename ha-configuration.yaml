@@ -1,0 +1,282 @@
+# /home/cristi/server/homeassistant/configuration.yaml
+# Pune acest fișier la primul start al HA, înainte de restart.
+
+default_config:
+
+homeassistant:
+  name: Acasă
+  latitude: 47.19
+  longitude: 23.05
+  elevation: 350
+  unit_system: metric
+  currency: RON
+  country: RO
+  time_zone: Europe/Bucharest
+  language: ro
+
+
+# ── Template sensors pentru Energy Dashboard ────────────────
+# Convertim grid_power (pozitiv=export, negativ=import) în doi senzori separați
+# cum cere panoul Energy din HA.
+template:
+  - sensor:
+      - name: "Grid import power"
+        unique_id: deye_grid_import_power
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        icon: mdi:transmission-tower-import
+        state: >
+          {% set g = states('sensor.deye_grid_power') | float(0) %}
+          {{ [(-g), 0] | max | round(0) }}
+
+      - name: "Grid export power"
+        unique_id: deye_grid_export_power
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        icon: mdi:transmission-tower-export
+        state: >
+          {% set g = states('sensor.deye_grid_power') | float(0) %}
+          {{ [g, 0] | max | round(0) }}
+
+      - name: "Battery charging power"
+        unique_id: deye_battery_charging_power
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        icon: mdi:battery-arrow-up
+        state: >
+          {% set b = states('sensor.deye_battery_power') | float(0) %}
+          {{ [(-b), 0] | max | round(0) }}
+
+      - name: "Battery discharging power"
+        unique_id: deye_battery_discharging_power
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        icon: mdi:battery-arrow-down
+        state: >
+          {% set b = states('sensor.deye_battery_power') | float(0) %}
+          {{ [b, 0] | max | round(0) }}
+
+
+      - name: "Cost evitat azi"
+        unique_id: deye_cost_evitat_azi
+        unit_of_measurement: RON
+        icon: mdi:cash-check
+        state: >
+          {% set production = states('sensor.deye_today_production') | float(0) %}
+          {% set export = states('sensor.deye_today_energy_export') | float(0) %}
+          {% set self_used = [production - export, 0] | max %}
+          {{ (self_used * 1.10) | round(2) }}
+
+      - name: "Castig export azi"
+        unique_id: deye_castig_export_azi
+        unit_of_measurement: RON
+        icon: mdi:cash-plus
+        state: >
+          {% set export = states('sensor.deye_today_energy_export') | float(0) %}
+          {{ (export * 0.40) | round(2) }}
+
+      - name: "Economie totala azi"
+        unique_id: deye_economie_totala_azi
+        unit_of_measurement: RON
+        icon: mdi:piggy-bank
+        state: >
+          {% set evitat = states('sensor.cost_evitat_azi') | float(0) %}
+          {% set castig = states('sensor.castig_export_azi') | float(0) %}
+          {{ (evitat + castig) | round(2) }}
+
+
+
+      - name: "Economie luna"
+        unique_id: deye_economie_luna
+        unit_of_measurement: RON
+        icon: mdi:cash-multiple
+        state: >
+          {% set productie = states('sensor.productie_luna') | float(0) %}
+          {% set export = states('sensor.export_grid_luna') | float(0) %}
+          {% set self_used = [productie - export, 0] | max %}
+          {% set evitat = self_used * 1.10 %}
+          {% set castig = export * 0.40 %}
+          {{ (evitat + castig) | round(2) }}
+
+      - name: "Economie an"
+        unique_id: deye_economie_an
+        unit_of_measurement: RON
+        icon: mdi:cash-fast
+        state: >
+          {% set productie = states('sensor.productie_an') | float(0) %}
+          {% set export = states('sensor.export_grid_an') | float(0) %}
+          {% set self_used = [productie - export, 0] | max %}
+          {% set evitat = self_used * 1.10 %}
+          {% set castig = export * 0.40 %}
+          {{ (evitat + castig) | round(2) }}
+
+
+      - name: "Investitie initiala"
+        unique_id: deye_investitie_initiala
+        unit_of_measurement: RON
+        icon: mdi:currency-usd
+        state: "42000"
+
+      - name: "Ramas de recuperat"
+        unique_id: deye_ramas_de_recuperat
+        unit_of_measurement: RON
+        icon: mdi:cash-clock
+        state: >
+          {% set investitie = 42000 %}
+          {% set recuperat = states('sensor.recuperat_lifetime') | float(0) %}
+          {{ [investitie - recuperat, 0] | max | round(2) }}
+
+      - name: "Procent amortizat"
+        unique_id: deye_procent_amortizat
+        unit_of_measurement: "%"
+        icon: mdi:progress-check
+        state: >
+          {% set investitie = 42000 %}
+          {% set recuperat = states('sensor.recuperat_lifetime') | float(0) %}
+          {{ (recuperat / investitie * 100) | round(2) }}
+
+      - name: "Economie medie zilnica"
+        unique_id: deye_economie_medie_zilnica
+        unit_of_measurement: "RON/zi"
+        icon: mdi:chart-line
+        state: >
+          {% set recuperat = states('sensor.recuperat_lifetime') | float(0) %}
+          {% set start_ts = as_timestamp("2026-05-18 00:00:00") %}
+          {% set now_ts = as_timestamp(now()) %}
+          {% set days = (now_ts - start_ts) / 86400 %}
+          {% if days <= 1 %}
+            {{ recuperat | round(2) }}
+          {% else %}
+            {{ (recuperat / days) | round(2) }}
+          {% endif %}
+
+      - name: "Zile pana amortizare"
+        unique_id: deye_zile_pana_amortizare
+        unit_of_measurement: "zile"
+        icon: mdi:calendar-clock
+        state: >
+          {% set ramas = states('sensor.ramas_de_recuperat') | float(0) %}
+          {% set medie = states('sensor.economie_medie_zilnica') | float(0) %}
+          {% if medie > 0 %}
+            {{ (ramas / medie) | round(0) }}
+          {% else %}
+            unknown
+          {% endif %}
+
+      - name: "Ani pana amortizare"
+        unique_id: deye_ani_pana_amortizare
+        unit_of_measurement: "ani"
+        icon: mdi:calendar-multiple
+        state: >
+          {% set zile = states('sensor.zile_pana_amortizare') | float(0) %}
+          {{ (zile / 365) | round(1) }}
+
+      - name: "Viata baterie ramasa"
+        unique_id: deye_viata_baterie_ramasa
+        unit_of_measurement: "%"
+        icon: mdi:battery-heart-variant
+        state: >
+          {% set cicluri = states('sensor.deye_total_battery_life_cycles') | float(0) %}
+          {% set rating = 6000 %}
+          {{ ([rating - cicluri, 0] | max / rating * 100) | round(1) }}
+
+
+
+      - name: "Forecast accuracy azi"
+        unique_id: forecast_accuracy_today
+        unit_of_measurement: "%"
+        icon: mdi:bullseye-arrow
+        state: >
+          {% set estimat = states('sensor.energy_production_today') | float(0) %}
+          {% set real = states('sensor.deye_today_production') | float(0) %}
+          {% set hour = now().hour %}
+          {% if hour < 19 or estimat < 1 or real < 1 %}
+            None
+          {% else %}
+            {{ ((real / estimat - 1) * 100) | round(1) }}
+          {% endif %}
+
+      - name: "Forecast diferenta azi"
+        unique_id: forecast_diff_today
+        unit_of_measurement: "kWh"
+        icon: mdi:scale-balance
+        state: >
+          {% set estimat = states('sensor.energy_production_today') | float(0) %}
+          {% set real = states('sensor.deye_today_production') | float(0) %}
+          {% set hour = now().hour %}
+          {% if hour < 19 or real < 1 %}
+            None
+          {% else %}
+            {{ (real - estimat) | round(2) }}
+          {% endif %}
+
+      - name: "Forecast eficienta kWp"
+        unique_id: forecast_efficiency_kwp
+        unit_of_measurement: "kWh/kWp"
+        icon: mdi:solar-power-variant
+        state: >
+          {% set real = states('sensor.deye_today_production') | float(0) %}
+          {% set kwp = 8.75 %}
+          {{ (real / kwp) | round(2) }}
+
+# ── Utility Meter — agregare zilnica/lunara/anuala (vezi utility_meters.yaml) ──
+utility_meter: !include utility_meters.yaml
+
+# ── Recorder — păstrează date 90 zile ───────────────────────
+recorder:
+  purge_keep_days: 90
+  commit_interval: 30
+  include:
+    entity_globs:
+      - sensor.deye_today_*
+      - sensor.deye_total_*
+      - sensor.deye_pv_power
+      - sensor.deye_battery
+      - sensor.deye_load_power
+      - sensor.deye_grid_power
+      - sensor.deye_battery_power
+      - sensor.energy_*
+      - sensor.power_production_*
+      - sensor.power_highest_*
+      - sensor.forecast_*
+      - sensor.productie_*
+      - sensor.consum_*
+      - sensor.export_grid_*
+      - sensor.import_grid_*
+      - sensor.economie_*
+      - sensor.recuperat_*
+      - sensor.ramas_de_*
+      - sensor.procent_amortizat
+      - sensor.viata_baterie_*
+      - sensor.zile_pana_*
+      - sensor.ani_pana_*
+      - sensor.cost_evitat_*
+      - sensor.castig_export_*
+      - input_number.*
+      - binary_sensor.deye_*
+      - sensor.deye_device_*
+    entities:
+      - sensor.grid_import_power
+      - sensor.grid_export_power
+      - sensor.battery_charging_power
+      - sensor.battery_discharging_power
+
+# ── Logger ──────────────────────────────────────────────────
+logger:
+  default: warning
+  logs:
+    homeassistant.components.mqtt: info
+automation: !include automations.yaml
+
+
+# Acceptă cereri prin Caddy reverse proxy
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.16.0.0/12
+    - 192.168.68.200
+    - 127.0.0.1

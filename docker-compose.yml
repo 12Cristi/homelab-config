@@ -10,7 +10,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - HOMEPAGE_ALLOWED_HOSTS=homepc.local:3000,homepc.local:3000,192.168.68.200:3000,homepc:3000,homepc.tail1b235c.ts.net:3000,100.113.68.25:3000,localhost:3000
+      - HOMEPAGE_ALLOWED_HOSTS=dashboard.stoica-homepc.duckdns.org,*.stoica-homepc.duckdns.org,homepc.local:3000,homepc.local:3000,192.168.68.200:3000,homepc:3000,homepc.tail1b235c.ts.net:3000,100.113.68.25:3000,localhost:3000
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: always 
@@ -292,3 +292,108 @@ services:
       - LOG_LEVEL=info
     volumes:
       - /home/cristi/server/jellyseerr/config:/app/config
+
+  # ── Caddy reverse proxy + SSL automat (Let's Encrypt via DuckDNS) ──
+  caddy:
+    build:
+      context: ./caddy/build
+      dockerfile: Dockerfile
+    image: caddy-duckdns:custom
+    container_name: caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - /home/cristi/server/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - /home/cristi/server/caddy/data:/data
+      - /home/cristi/server/caddy/config:/config
+    env_file:
+      - /home/cristi/server/.env
+    environment:
+      - TZ=Europe/Bucharest
+
+  # ── PostgreSQL pentru Authentik ─────────────────
+  postgresql-authentik:
+    image: docker.io/library/postgres:16-alpine
+    container_name: postgresql-authentik
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    volumes:
+      - /home/cristi/server/authentik/database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${PG_PASS:?}
+      POSTGRES_USER: authentik
+      POSTGRES_DB: authentik
+
+  # ── Redis pentru Authentik ──────────────────────
+  redis-authentik:
+    image: docker.io/library/redis:alpine
+    container_name: redis-authentik
+    command: --save 60 1 --loglevel warning
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 3s
+    volumes:
+      - /home/cristi/server/authentik/redis:/data
+
+  # ── Authentik server (UI + API) ─────────────────
+  authentik-server:
+    image: ghcr.io/goauthentik/server:latest
+    container_name: authentik-server
+    restart: always
+    command: server
+    environment:
+      AUTHENTIK_REDIS__HOST: redis-authentik
+      AUTHENTIK_POSTGRESQL__HOST: postgresql-authentik
+      AUTHENTIK_POSTGRESQL__USER: authentik
+      AUTHENTIK_POSTGRESQL__NAME: authentik
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "false"
+    volumes:
+      - /home/cristi/server/authentik/media:/media
+      - /home/cristi/server/authentik/custom-templates:/templates
+    ports:
+      - "9443:9000"
+    depends_on:
+      postgresql-authentik:
+        condition: service_healthy
+      redis-authentik:
+        condition: service_healthy
+
+  # ── Authentik worker (background jobs) ──────────
+  authentik-worker:
+    image: ghcr.io/goauthentik/server:latest
+    container_name: authentik-worker
+    restart: always
+    command: worker
+    environment:
+      AUTHENTIK_REDIS__HOST: redis-authentik
+      AUTHENTIK_POSTGRESQL__HOST: postgresql-authentik
+      AUTHENTIK_POSTGRESQL__USER: authentik
+      AUTHENTIK_POSTGRESQL__NAME: authentik
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "false"
+    user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/cristi/server/authentik/media:/media
+      - /home/cristi/server/authentik/certs:/certs
+      - /home/cristi/server/authentik/custom-templates:/templates
+    depends_on:
+      postgresql-authentik:
+        condition: service_healthy
+      redis-authentik:
+        condition: service_healthy

@@ -1,0 +1,126 @@
+{
+    email cristi@stoica-homepc.duckdns.org
+}
+
+*.stoica-homepc.duckdns.org {
+    tls {
+        dns duckdns {env.DUCKDNS_TOKEN}
+        resolvers 1.1.1.1 8.8.8.8
+        propagation_timeout 5m
+    }
+    
+    @jellyfin host jellyfin.stoica-homepc.duckdns.org
+    handle @jellyfin {
+        reverse_proxy 192.168.68.200:8096
+    }
+    
+    @jellyseerr host jellyseerr.stoica-homepc.duckdns.org
+    handle @jellyseerr {
+        reverse_proxy 192.168.68.200:5055
+    }
+    
+    @ha host ha.stoica-homepc.duckdns.org
+    handle @ha {
+        reverse_proxy 192.168.68.200:8123
+    }
+    
+    @portainer host portainer.stoica-homepc.duckdns.org
+    handle @portainer {
+        reverse_proxy 192.168.68.200:9000
+    }
+    
+    @dashboard host dashboard.stoica-homepc.duckdns.org
+    handle @dashboard {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            
+            reverse_proxy 192.168.68.200:3000
+        }
+    }
+    
+    @pihole host pihole.stoica-homepc.duckdns.org
+    handle @pihole {
+        route {
+            # 1. Outpost endpoint (intern, NU prin reverse_proxy spre Pi-hole)
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            
+            # 2. Forward auth pe TOATE celelalte path-uri
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            
+            # 3. Redirect / spre /admin/
+            redir / /admin/ permanent
+            
+            # 4. Proxy spre Pi-hole
+            reverse_proxy 192.168.68.200:8082
+        }
+    }
+    
+    @qbit host qbit.stoica-homepc.duckdns.org
+    handle @qbit {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            
+            reverse_proxy 192.168.68.200:8080
+        }
+    }
+    
+    @files host files.stoica-homepc.duckdns.org
+    handle @files {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            
+            reverse_proxy 192.168.68.200:8091
+        }
+    }
+    
+    @z2m host z2m.stoica-homepc.duckdns.org
+    handle @z2m {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            
+            reverse_proxy 192.168.68.200:8099
+        }
+    }
+    
+    @audiobooks host audiobooks.stoica-homepc.duckdns.org
+    handle @audiobooks {
+        reverse_proxy 192.168.68.200:13378
+    }
+    
+    @auth host auth.stoica-homepc.duckdns.org
+    handle @auth {
+        reverse_proxy authentik-server:9000
+    }
+    
+    handle {
+        respond "Not Found" 404
+    }
+}

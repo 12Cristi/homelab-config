@@ -1,7 +1,7 @@
 - Smart Home:
     - Solar live:
         icon: home-assistant
-        href: http://192.168.68.200:8123/dashboard-solar/0
+        href: https://ha.stoica-homepc.duckdns.org/dashboard-solar/0
         description: Putere instant
         server: my-docker
         container: homeassistant
@@ -25,7 +25,7 @@
 - Utility:
     - Pi-hole:
         icon: pi-hole
-        href: http://192.168.68.200:8082/admin/dashboard
+        href: https://pihole.stoica-homepc.duckdns.org/admin/
         description: DNS filtering
         server: my-docker
         container: pihole
@@ -37,7 +37,7 @@
           fields: ["queries", "blocked", "blocked_percent"]
     - qBittorrent:
         icon: qbittorrent
-        href: http://192.168.68.200:8080
+        href: https://qbit.stoica-homepc.duckdns.org
         description: Torrent client
         server: my-docker
         container: qbittorrent
@@ -49,7 +49,7 @@
           fields: ["download", "seed", "upload"]
     - FileBrowser:
         icon: filebrowser
-        href: http://192.168.68.200:8091
+        href: https://files.stoica-homepc.duckdns.org
         description: Web file manager
         server: my-docker
         container: filebrowser
@@ -63,19 +63,19 @@
 - Media:
     - Jellyfin:
         icon: jellyfin
-        href: http://192.168.68.200:8096
+        href: https://jellyfin.stoica-homepc.duckdns.org
         description: Filme & seriale
         server: my-docker
         container: jellyfin
     - Jellyseerr:
         icon: jellyseerr
-        href: http://192.168.68.200:5055
+        href: https://jellyseerr.stoica-homepc.duckdns.org
         description: Cereri filme & seriale
         server: my-docker
         container: jellyseerr
     - Audiobooks:
         icon: audiobookshelf
-        href: http://192.168.68.200:13378
+        href: https://audiobooks.stoica-homepc.duckdns.org
         description: Audiobookshelf
         server: my-docker
         container: audiobookshelf
@@ -95,13 +95,13 @@
 - Management:
     - Zigbee2MQTT:
         icon: zigbee2mqtt
-        href: http://192.168.68.200:8099
+        href: https://z2m.stoica-homepc.duckdns.org
         description: Coordinator Zigbee activ
         server: my-docker
         container: zigbee2mqtt
     - Portainer:
         icon: portainer.png
-        href: http://192.168.68.200:9000
+        href: https://portainer.stoica-homepc.duckdns.org
         description: Docker management
         server: my-docker
         container: portainer
