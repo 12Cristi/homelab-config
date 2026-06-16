@@ -1,0 +1,69 @@
+# ── Productie ──────────────────────────────────────────────
+productie_zilnica:
+  source: sensor.deye_total_production
+  cycle: daily
+  name: "Productie zi"
+
+productie_lunara:
+  source: sensor.deye_total_production
+  cycle: monthly
+  name: "Productie luna"
+
+productie_anuala:
+  source: sensor.deye_total_production
+  cycle: yearly
+  name: "Productie an"
+
+# ── Consum ─────────────────────────────────────────────────
+consum_zilnic:
+  source: sensor.deye_total_load_consumption
+  cycle: daily
+  name: "Consum zi"
+
+consum_lunar:
+  source: sensor.deye_total_load_consumption
+  cycle: monthly
+  name: "Consum luna"
+
+consum_anual:
+  source: sensor.deye_total_load_consumption
+  cycle: yearly
+  name: "Consum an"
+
+# ── Import grid ────────────────────────────────────────────
+import_zilnic:
+  source: sensor.deye_total_energy_import
+  cycle: daily
+  name: "Import grid zi"
+
+import_lunar:
+  source: sensor.deye_total_energy_import
+  cycle: monthly
+  name: "Import grid luna"
+
+import_anual:
+  source: sensor.deye_total_energy_import
+  cycle: yearly
+  name: "Import grid an"
+
+# ── Export grid ────────────────────────────────────────────
+export_zilnic:
+  source: sensor.deye_total_energy_export
+  cycle: daily
+  name: "Export grid zi"
+
+export_lunar:
+  source: sensor.deye_total_energy_export
+  cycle: monthly
+  name: "Export grid luna"
+
+export_anual:
+  source: sensor.deye_total_energy_export
+  cycle: yearly
+  name: "Export grid an"
+
+# ── Cumulator economii lifetime ────────────────────────────
+recuperat_total:
+  source: sensor.economie_totala_azi
+  cycle: yearly
+  name: "Recuperat lifetime"
