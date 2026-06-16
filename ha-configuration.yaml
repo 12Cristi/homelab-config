@@ -273,6 +273,18 @@ logger:
 automation: !include automations.yaml
 
 
+# ── ABS Stats (audiobookshelf reading stats) ────────────────
+rest:
+  - scan_interval: 300
+    resource: http://localhost:8123/local/abs-stats.json
+    sensor:
+      - name: "ABS Stats"
+        unique_id: abs_stats
+        value_template: "{{ value_json.updated }}"
+        json_attributes:
+          - users
+          - updated
+
 # Acceptă cereri prin Caddy reverse proxy
 http:
   use_x_forwarded_for: true
