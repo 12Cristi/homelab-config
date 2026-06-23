@@ -60,7 +60,6 @@ services:
       - "8082:80"
     environment:
       - TZ=Europe/Bucharest
-      - FTLCONF_webserver_api_password=REDACTED
     volumes:
       - /home/cristi/server/pihole/etc-pihole:/etc/pihole
       - /home/cristi/server/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
@@ -309,6 +308,7 @@ services:
       - /home/cristi/server/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - /home/cristi/server/caddy/data:/data
       - /home/cristi/server/caddy/config:/config
+      - /home/cristi/server/homeassistant/www:/srv/ha-www:ro
     env_file:
       - /home/cristi/server/.env
     environment:

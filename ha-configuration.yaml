@@ -275,7 +275,7 @@ automation: !include automations.yaml
 
 # ── ABS Stats (audiobookshelf reading stats) ────────────────
 rest:
-  - scan_interval: 300
+  - scan_interval: 120
     resource: http://localhost:8123/local/abs-stats.json
     sensor:
       - name: "ABS Stats"
@@ -283,6 +283,16 @@ rest:
         value_template: "{{ value_json.updated }}"
         json_attributes:
           - users
+          - updated
+
+  - scan_interval: 3600
+    resource: http://localhost:8123/local/energy-export.json
+    sensor:
+      - name: "Energy Export"
+        unique_id: energy_export
+        value_template: "{{ value_json.updated }}"
+        json_attributes:
+          - rows
           - updated
 
 # Acceptă cereri prin Caddy reverse proxy

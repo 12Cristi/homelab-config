@@ -29,27 +29,22 @@
         description: DNS filtering
         server: my-docker
         container: pihole
-        widget:
-          type: pihole
-          url: http://192.168.68.200:8082
-          version: 6
-          password: admin
-          fields: ["queries", "blocked", "blocked_percent"]
+        # widget Pi-hole dezactivat - bug Homepage v1.13.2 cu Pi-hole v6
+        # widget:
+        #   type: pihole
+        #   url: http://192.168.68.200:8082
+        #   version: 6
+        #   password: admin
+        #   fields: ["queries", "blocked", "blocked_percent"]
     - qBittorrent:
         icon: qbittorrent
         href: https://qbit.stoica-homepc.duckdns.org
         description: Torrent client
         server: my-docker
         container: qbittorrent
-        widget:
-          type: qbittorrent
-          url: http://192.168.68.200:8080
-          username: admin
-          password: REDACTED
-          fields: ["download", "seed", "upload"]
     - FileBrowser:
         icon: filebrowser
-        href: https://files.stoica-homepc.duckdns.org
+        href: https://filebrowser.stoica-homepc.duckdns.org
         description: Web file manager
         server: my-docker
         container: filebrowser
@@ -79,6 +74,33 @@
         description: Audiobookshelf
         server: my-docker
         container: audiobookshelf
+
+    - Sonarr:
+        icon: sonarr
+        href: https://sonarr.stoica-homepc.duckdns.org
+        description: Tracking seriale
+        server: my-docker
+        container: sonarr
+
+    - Radarr:
+        icon: radarr
+        href: https://radarr.stoica-homepc.duckdns.org
+        description: Tracking filme
+        server: my-docker
+        container: radarr
+
+    - Bazarr:
+        icon: bazarr
+        href: https://bazarr.stoica-homepc.duckdns.org
+        description: Subtitrări automat
+        server: my-docker
+        container: bazarr
+    - Prowlarr:
+        icon: prowlarr
+        href: https://prowlarr.stoica-homepc.duckdns.org
+        description: Indexer aggregator
+        server: my-docker
+        container: prowlarr
 
 - Monitorizare Spital:
     - Change Detection:

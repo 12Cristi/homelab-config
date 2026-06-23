@@ -15,7 +15,7 @@ layout:
     columns: 4
   Media:
     style: row
-    columns: 3
+    columns: 4
   Monitorizare Spital:
     style: column
   Management:

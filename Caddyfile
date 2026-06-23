@@ -80,20 +80,6 @@
         }
     }
     
-    @files host files.stoica-homepc.duckdns.org
-    handle @files {
-        route {
-            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
-            
-            forward_auth authentik-server:9000 {
-                uri /outpost.goauthentik.io/auth/caddy
-                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
-                trusted_proxies private_ranges
-            }
-            
-            reverse_proxy 192.168.68.200:8091
-        }
-    }
     
     @z2m host z2m.stoica-homepc.duckdns.org
     handle @z2m {
@@ -110,6 +96,71 @@
         }
     }
     
+    @sonarr host sonarr.stoica-homepc.duckdns.org
+    handle @sonarr {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            reverse_proxy 192.168.68.200:8989
+        }
+    }
+
+    @radarr host radarr.stoica-homepc.duckdns.org
+    handle @radarr {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            reverse_proxy 192.168.68.200:7878
+        }
+    }
+
+    @bazarr host bazarr.stoica-homepc.duckdns.org
+    handle @bazarr {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            reverse_proxy 192.168.68.200:6767
+        }
+    }
+
+    @prowlarr host prowlarr.stoica-homepc.duckdns.org
+    handle @prowlarr {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            reverse_proxy 192.168.68.200:9696
+        }
+    }
+
+    @filebrowser host filebrowser.stoica-homepc.duckdns.org
+    handle @filebrowser {
+        route {
+            reverse_proxy /outpost.goauthentik.io/* authentik-server:9000
+            forward_auth authentik-server:9000 {
+                uri /outpost.goauthentik.io/auth/caddy
+                copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+                trusted_proxies private_ranges
+            }
+            reverse_proxy 192.168.68.200:8091
+        }
+    }
+
     @audiobooks host audiobooks.stoica-homepc.duckdns.org
     handle @audiobooks {
         reverse_proxy 192.168.68.200:13378
