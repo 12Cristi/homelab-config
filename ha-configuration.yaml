@@ -229,7 +229,7 @@ utility_meter: !include utility_meters.yaml
 # ── Recorder — păstrează date 90 zile ───────────────────────
 recorder:
   purge_keep_days: 90
-  commit_interval: 30
+  commit_interval: 5
   include:
     entity_globs:
       - sensor.deye_today_*
@@ -238,6 +238,12 @@ recorder:
       - sensor.deye_battery
       - sensor.deye_load_power
       - sensor.deye_grid_power
+      - sensor.deye_grid_frequency
+      - sensor.deye_grid_l1_voltage
+      - sensor.deye_grid_l2_voltage
+      - sensor.deye_grid_l3_voltage
+      - sensor.deye_device_state
+      - sensor.deye_temperature
       - sensor.deye_battery_power
       - sensor.energy_*
       - sensor.power_production_*
@@ -294,6 +300,9 @@ rest:
         json_attributes:
           - rows
           - updated
+
+shell_command:
+  log_grid_anomalie: echo "{{ message }}" >> /config/grid_anomalii.csv
 
 # Acceptă cereri prin Caddy reverse proxy
 http:

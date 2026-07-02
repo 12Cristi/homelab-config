@@ -1,0 +1,1108 @@
+2026-06-18 13:38:25.3|Debug|ProcessProvider|Found 0 processes with the name: Prowlarr.Console
+2026-06-18 13:38:25.3|Debug|ProcessProvider|Found 1 processes with the name: Prowlarr
+2026-06-18 13:38:25.3|Debug|ProcessProvider| - [155] Prowlarr
+2026-06-18 13:38:25.4|Info|MigrationController|*** Migrating data source=/config/logs.db;cache size=-20000;datetimekind=Utc;journal mode=Wal;pooling=True;version=3;busytimeout=1000 ***
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|DatabaseEngineVersionCheck migrating
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|PerformDBOperation 
+2026-06-18 13:38:25.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Performing DB Operation
+2026-06-18 13:38:25.5|Info|DatabaseEngineVersionCheck|SQLite 3.50.4
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|=> 0.021892s
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|DatabaseEngineVersionCheck migrated
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0224024s
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|VersionMigration migrating
+2026-06-18 13:38:25.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|CreateTable VersionInfo
+2026-06-18 13:38:25.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE TABLE "VersionInfo" ("Version" INTEGER NOT NULL)
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0009424s
+2026-06-18 13:38:25.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|VersionMigration migrated
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0080589s
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|VersionUniqueMigration migrating
+2026-06-18 13:38:25.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|CreateIndex VersionInfo (Version)
+2026-06-18 13:38:25.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE UNIQUE INDEX "UC_Version" ON "VersionInfo" ("Version" ASC)
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0046278s
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|AlterTable VersionInfo
+2026-06-18 13:38:25.5|Info|FluentMigrator.Runner.MigrationRunner|=> 3E-06s
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|CreateColumn VersionInfo AppliedOn DateTime
+2026-06-18 13:38:25.6|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|ALTER TABLE "VersionInfo" ADD COLUMN "AppliedOn" DATETIME
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0129604s
+2026-06-18 13:38:25.6|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|VersionUniqueMigration migrated
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0346128s
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|VersionDescriptionMigration migrating
+2026-06-18 13:38:25.6|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|AlterTable VersionInfo
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|=> 5E-06s
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|CreateColumn VersionInfo Description String
+2026-06-18 13:38:25.6|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|ALTER TABLE "VersionInfo" ADD COLUMN "Description" TEXT
+2026-06-18 13:38:25.6|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0024589s
+2026-06-18 13:38:25.6|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.7|Info|FluentMigrator.Runner.MigrationRunner|VersionDescriptionMigration migrated
+2026-06-18 13:38:25.7|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0270673s
+2026-06-18 13:38:25.7|Info|FluentMigrator.Runner.MigrationRunner|1: InitialSetup migrating
+2026-06-18 13:38:25.7|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.7|Info|InitialSetup|Starting migration of Log DB to 1
+2026-06-18 13:38:25.7|Info|FluentMigrator.Runner.MigrationRunner|CreateTable Logs
+2026-06-18 13:38:25.7|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE TABLE "Logs" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Message" TEXT NOT NULL, "Time" DATETIME NOT NULL, "Logger" TEXT NOT NULL, "Exception" TEXT, "ExceptionType" TEXT, "Level" TEXT NOT NULL)
+2026-06-18 13:38:25.7|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0026955s
+2026-06-18 13:38:25.7|Info|FluentMigrator.Runner.MigrationRunner|CreateIndex Logs (Time)
+2026-06-18 13:38:25.7|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE INDEX "IX_Logs_Time" ON "Logs" ("Time" ASC)
+2026-06-18 13:38:25.7|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0081151s
+2026-06-18 13:38:25.7|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (1, '2026-06-18T10:38:25', 'InitialSetup')
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|1: InitialSetup migrated
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0406138s
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|2: ApplicationStatus migrating
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.8|Info|ApplicationStatus|Starting migration of Log DB to 2
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2, '2026-06-18T10:38:25', 'ApplicationStatus')
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|2: ApplicationStatus migrated
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0319775s
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|3: IndexerProps migrating
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.8|Info|IndexerProps|Starting migration of Log DB to 3
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (3, '2026-06-18T10:38:25', 'IndexerProps')
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|3: IndexerProps migrated
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0273243s
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|4: add_update_history migrating
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.8|Info|add_update_history|Starting migration of Log DB to 4
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|CreateTable UpdateHistory
+2026-06-18 13:38:25.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE TABLE "UpdateHistory" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Date" DATETIME NOT NULL, "Version" TEXT NOT NULL, "EventType" INTEGER NOT NULL)
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0036393s
+2026-06-18 13:38:25.8|Info|FluentMigrator.Runner.MigrationRunner|CreateIndex UpdateHistory (Date)
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE INDEX "IX_UpdateHistory_Date" ON "UpdateHistory" ("Date" ASC)
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0045486s
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (4, '2026-06-18T10:38:25', 'add_update_history')
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|4: add_update_history migrated
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|=> 0.017488s
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|5: update_notifiarr migrating
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.9|Info|update_notifiarr|Starting migration of Log DB to 5
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (5, '2026-06-18T10:38:25', 'update_notifiarr')
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|5: update_notifiarr migrated
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0135564s
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|6: app_profiles migrating
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.9|Info|app_profiles|Starting migration of Log DB to 6
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (6, '2026-06-18T10:38:25', 'app_profiles')
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|6: app_profiles migrated
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0123408s
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|7: history_failed migrating
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.9|Info|history_failed|Starting migration of Log DB to 7
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (7, '2026-06-18T10:38:25', 'history_failed')
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|7: history_failed migrated
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|=> 0.017308s
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|8: redacted_api migrating
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.9|Info|redacted_api|Starting migration of Log DB to 8
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (8, '2026-06-18T10:38:25', 'redacted_api')
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|8: redacted_api migrated
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0164575s
+2026-06-18 13:38:25.9|Info|FluentMigrator.Runner.MigrationRunner|10: IndexerProxies migrating
+2026-06-18 13:38:25.9|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:25.9|Info|IndexerProxies|Starting migration of Log DB to 10
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (10, '2026-06-18T10:38:26', 'IndexerProxies')
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|10: IndexerProxies migrated
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0137524s
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|11: app_indexer_remote_name migrating
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.0|Info|app_indexer_remote_name|Starting migration of Log DB to 11
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (11, '2026-06-18T10:38:26', 'app_indexer_remote_name')
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|11: app_indexer_remote_name migrated
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0110723s
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|13: desi_gazelle_to_unit3d migrating
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.0|Info|desi_gazelle_to_unit3d|Starting migration of Log DB to 13
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (13, '2026-06-18T10:38:26', 'desi_gazelle_to_unit3d')
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|13: desi_gazelle_to_unit3d migrated
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0119436s
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|14: add_on_update_to_notifications migrating
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.0|Info|add_on_update_to_notifications|Starting migration of Log DB to 14
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (14, '2026-06-18T10:38:26', 'add_on_update_to_notifications')
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|14: add_on_update_to_notifications migrated
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0101566s
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|15: IndexerVersions migrating
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.0|Info|IndexerVersions|Starting migration of Log DB to 15
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (15, '2026-06-18T10:38:26', 'IndexerVersions')
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|15: IndexerVersions migrated
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0179061s
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|16: cleanup_config migrating
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.0|Info|cleanup_config|Starting migration of Log DB to 16
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (16, '2026-06-18T10:38:26', 'cleanup_config')
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|16: cleanup_config migrated
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0096773s
+2026-06-18 13:38:26.0|Info|FluentMigrator.Runner.MigrationRunner|17: indexer_cleanup migrating
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.0|Info|indexer_cleanup|Starting migration of Log DB to 17
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (17, '2026-06-18T10:38:26', 'indexer_cleanup')
+2026-06-18 13:38:26.0|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|17: indexer_cleanup migrated
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.01175s
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|18: minimum_seeders migrating
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.1|Info|minimum_seeders|Starting migration of Log DB to 18
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (18, '2026-06-18T10:38:26', 'minimum_seeders')
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|18: minimum_seeders migrated
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0140033s
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|19: remove_showrss migrating
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.1|Info|remove_showrss|Starting migration of Log DB to 19
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (19, '2026-06-18T10:38:26', 'remove_showrss')
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|19: remove_showrss migrated
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0098855s
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|20: remove_torrentparadiseml migrating
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.1|Info|remove_torrentparadiseml|Starting migration of Log DB to 20
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (20, '2026-06-18T10:38:26', 'remove_torrentparadiseml')
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|20: remove_torrentparadiseml migrated
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0077437s
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|21: localization_setting_to_string migrating
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.1|Info|localization_setting_to_string|Starting migration of Log DB to 21
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (21, '2026-06-18T10:38:26', 'localization_setting_to_string')
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|21: localization_setting_to_string migrated
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0069117s
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|22: orpheus_api migrating
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.1|Info|orpheus_api|Starting migration of Log DB to 22
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (22, '2026-06-18T10:38:26', 'orpheus_api')
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|22: orpheus_api migrated
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0138577s
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|23: download_client_categories migrating
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.1|Info|download_client_categories|Starting migration of Log DB to 23
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (23, '2026-06-18T10:38:26', 'download_client_categories')
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|23: download_client_categories migrated
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0065237s
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|24: add_salt_to_users migrating
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.1|Info|add_salt_to_users|Starting migration of Log DB to 24
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (24, '2026-06-18T10:38:26', 'add_salt_to_users')
+2026-06-18 13:38:26.1|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|24: add_salt_to_users migrated
+2026-06-18 13:38:26.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0057171s
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|25: speedcd_userpasssettings_to_speedcdsettings migrating
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.2|Info|speedcd_userpasssettings_to_speedcdsettings|Starting migration of Log DB to 25
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (25, '2026-06-18T10:38:26', 'speedcd_userpasssettings_to_speedcdsettings')
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|25: speedcd_userpasssettings_to_speedcdsettings migrated
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0116118s
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|26: torrentday_cookiesettings_to_torrentdaysettings migrating
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.2|Info|torrentday_cookiesettings_to_torrentdaysettings|Starting migration of Log DB to 26
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (26, '2026-06-18T10:38:26', 'torrentday_cookiesettings_to_torrentdaysettings')
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|26: torrentday_cookiesettings_to_torrentdaysettings migrated
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0066574s
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|27: alpharatio_greatposterwall_config_contract migrating
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.2|Info|alpharatio_greatposterwall_config_contract|Starting migration of Log DB to 27
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (27, '2026-06-18T10:38:26', 'alpharatio_greatposterwall_config_contract')
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|27: alpharatio_greatposterwall_config_contract migrated
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0184481s
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|28: remove_notwhatcd migrating
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.2|Info|remove_notwhatcd|Starting migration of Log DB to 28
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (28, '2026-06-18T10:38:26', 'remove_notwhatcd')
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|28: remove_notwhatcd migrated
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0089386s
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|29: add_on_grab_to_notifications migrating
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.2|Info|add_on_grab_to_notifications|Starting migration of Log DB to 29
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (29, '2026-06-18T10:38:26', 'add_on_grab_to_notifications')
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|29: add_on_grab_to_notifications migrated
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0188449s
+2026-06-18 13:38:26.2|Info|FluentMigrator.Runner.MigrationRunner|30: animetorrents_use_custom_config_contract migrating
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.2|Info|animetorrents_use_custom_config_contract|Starting migration of Log DB to 30
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (30, '2026-06-18T10:38:26', 'animetorrents_use_custom_config_contract')
+2026-06-18 13:38:26.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|30: animetorrents_use_custom_config_contract migrated
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0143194s
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|31: apprise_server_url migrating
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.3|Info|apprise_server_url|Starting migration of Log DB to 31
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (31, '2026-06-18T10:38:26', 'apprise_server_url')
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|31: apprise_server_url migrated
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|=> 0.008828s
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|32: health_restored_notification migrating
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.3|Info|health_restored_notification|Starting migration of Log DB to 32
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (32, '2026-06-18T10:38:26', 'health_restored_notification')
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|32: health_restored_notification migrated
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0143572s
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|33: remove_uc migrating
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.3|Info|remove_uc|Starting migration of Log DB to 33
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (33, '2026-06-18T10:38:26', 'remove_uc')
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|33: remove_uc migrated
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0125144s
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|34: history_fix_data_titles migrating
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.3|Info|history_fix_data_titles|Starting migration of Log DB to 34
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (34, '2026-06-18T10:38:26', 'history_fix_data_titles')
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|34: history_fix_data_titles migrated
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0083267s
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|35: download_client_per_indexer migrating
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.3|Info|download_client_per_indexer|Starting migration of Log DB to 35
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (35, '2026-06-18T10:38:26', 'download_client_per_indexer')
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|35: download_client_per_indexer migrated
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0096009s
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|36: postgres_update_timestamp_columns_to_with_timezone migrating
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.3|Info|postgres_update_timestamp_columns_to_with_timezone|Starting migration of Log DB to 36
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|AlterTable Logs
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|=> 3.8E-06s
+2026-06-18 13:38:26.3|Info|FluentMigrator.Runner.MigrationRunner|AlterColumn Logs Time DateTimeOffset
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE TABLE "Logs_temp" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Message" TEXT NOT NULL, "Time" DATETIME NOT NULL, "Logger" TEXT NOT NULL, "Exception" TEXT, "ExceptionType" TEXT, "Level" TEXT NOT NULL)
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "Logs_temp" ("Id", "Message", "Time", "Logger", "Exception", "ExceptionType", "Level") SELECT "Id", "Message", "Time", "Logger", "Exception", "ExceptionType", "Level" FROM "Logs"
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|DROP TABLE "Logs"
+2026-06-18 13:38:26.3|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|ALTER TABLE "Logs_temp" RENAME TO "Logs"
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE INDEX "IX_Logs_Time" ON "Logs" ("Time" ASC)
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0181108s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|AlterTable UpdateHistory
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 8E-06s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|AlterColumn UpdateHistory Date DateTimeOffset
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE TABLE "UpdateHistory_temp" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Date" DATETIME NOT NULL, "Version" TEXT NOT NULL, "EventType" INTEGER NOT NULL)
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "UpdateHistory_temp" ("Id", "Date", "Version", "EventType") SELECT "Id", "Date", "Version", "EventType" FROM "UpdateHistory"
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|DROP TABLE "UpdateHistory"
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|ALTER TABLE "UpdateHistory_temp" RENAME TO "UpdateHistory"
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE INDEX "IX_UpdateHistory_Date" ON "UpdateHistory" ("Date" ASC)
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0154062s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|AlterTable VersionInfo
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 3.9E-06s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|AlterColumn VersionInfo AppliedOn DateTimeOffset
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE TABLE "VersionInfo_temp" ("Version" INTEGER NOT NULL, "AppliedOn" DATETIME, "Description" TEXT)
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo_temp" ("Version", "AppliedOn", "Description") SELECT "Version", "AppliedOn", "Description" FROM "VersionInfo"
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|DROP TABLE "VersionInfo"
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|ALTER TABLE "VersionInfo_temp" RENAME TO "VersionInfo"
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|CREATE UNIQUE INDEX "UC_Version" ON "VersionInfo" ("Version" ASC)
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0127787s
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (36, '2026-06-18T10:38:26', 'postgres_update_timestamp_columns_to_with_timezone')
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|36: postgres_update_timestamp_columns_to_with_timezone migrated
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.020583s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|37: add_notification_status migrating
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.4|Info|add_notification_status|Starting migration of Log DB to 37
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (37, '2026-06-18T10:38:26', 'add_notification_status')
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|37: add_notification_status migrated
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0082735s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|38: indexers_freeleech_only_config_contract migrating
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.4|Info|indexers_freeleech_only_config_contract|Starting migration of Log DB to 38
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (38, '2026-06-18T10:38:26', 'indexers_freeleech_only_config_contract')
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|38: indexers_freeleech_only_config_contract migrated
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0076007s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|39: email_encryption migrating
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.4|Info|email_encryption|Starting migration of Log DB to 39
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (39, '2026-06-18T10:38:26', 'email_encryption')
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|39: email_encryption migrated
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0041519s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|40: newznab_category_to_capabilities_settings migrating
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.4|Info|newznab_category_to_capabilities_settings|Starting migration of Log DB to 40
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (40, '2026-06-18T10:38:26', 'newznab_category_to_capabilities_settings')
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|40: newznab_category_to_capabilities_settings migrated
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0068241s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|41: gazelle_freeleech_token_options migrating
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.4|Info|gazelle_freeleech_token_options|Starting migration of Log DB to 41
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (41, '2026-06-18T10:38:26', 'gazelle_freeleech_token_options')
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|41: gazelle_freeleech_token_options migrated
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0047864s
+2026-06-18 13:38:26.4|Info|FluentMigrator.Runner.MigrationRunner|42: myanonamouse_freeleech_wedge_options migrating
+2026-06-18 13:38:26.4|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.5|Info|myanonamouse_freeleech_wedge_options|Starting migration of Log DB to 42
+2026-06-18 13:38:26.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (42, '2026-06-18T10:38:26', 'myanonamouse_freeleech_wedge_options')
+2026-06-18 13:38:26.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.5|Info|FluentMigrator.Runner.MigrationRunner|42: myanonamouse_freeleech_wedge_options migrated
+2026-06-18 13:38:26.5|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0071426s
+2026-06-18 13:38:26.5|Info|FluentMigrator.Runner.MigrationRunner|43: newznab_indexers_enable_redirect migrating
+2026-06-18 13:38:26.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Beginning Transaction
+2026-06-18 13:38:26.5|Info|newznab_indexers_enable_redirect|Starting migration of Log DB to 43
+2026-06-18 13:38:26.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (43, '2026-06-18T10:38:26', 'newznab_indexers_enable_redirect')
+2026-06-18 13:38:26.5|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Committing Transaction
+2026-06-18 13:38:26.5|Info|FluentMigrator.Runner.MigrationRunner|43: newznab_indexers_enable_redirect migrated
+2026-06-18 13:38:26.5|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0070285s
+2026-06-18 13:38:26.5|Debug|MigrationController|Took: 00:00:01.1078512
+2026-06-18 13:38:27.6|Info|Microsoft.Hosting.Lifetime|Now listening on: http://[::]:9696
+2026-06-18 13:38:27.7|Info|UpdaterConfigProvider|Update mechanism BuiltIn not supported in the current configuration, changing to Docker.
+2026-06-18 13:38:29.4|Info|AppSyncProfileService|Setting up default app profile
+2026-06-18 13:38:29.5|Debug|NotificationFactory|Initializing Providers. Count 20
+2026-06-18 13:38:29.5|Info|CommandExecutor|Starting 3 threads for tasks.
+2026-06-18 13:38:29.9|Debug|HttpClient|Downloading [https://indexers.prowlarr.com/master/11/package.zip] to [/config/Definitions/indexers.zip]
+2026-06-18 13:38:30.5|Info|ManagedHttpDispatcher|IPv4 is available: True, IPv6 will be disabled
+2026-06-18 13:38:31.9|Debug|HttpClient|Downloading Completed. took 1s
+2026-06-18 13:38:32.7|Debug|IndexerDefinitionUpdateService|Updated indexer definitions
+2026-06-18 13:38:32.7|Debug|IndexerFactory|Initializing Providers. Count 67
+2026-06-18 13:38:32.8|Debug|IndexerProxyFactory|Initializing Providers. Count 4
+2026-06-18 13:38:32.8|Debug|DownloadClientFactory|Initializing Providers. Count 18
+2026-06-18 13:38:32.8|Debug|ApplicationFactory|Initializing Providers. Count 7
+2026-06-18 13:38:32.8|Info|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down.
+2026-06-18 13:38:32.8|Info|Microsoft.Hosting.Lifetime|Hosting environment: Production
+2026-06-18 13:38:32.9|Info|Microsoft.Hosting.Lifetime|Content root path: /app/prowlarr/bin
+2026-06-18 15:24:13.0|Info|Microsoft.Hosting.Lifetime|Application is shutting down...
+2026-06-18 15:24:13.1|Info|ConsoleApp|Exiting main.
+2026-06-18 15:25:07.1|Debug|ProcessProvider|Found 0 processes with the name: Prowlarr.Console
+2026-06-18 15:25:07.2|Debug|ProcessProvider|Found 1 processes with the name: Prowlarr
+2026-06-18 15:25:07.2|Debug|ProcessProvider| - [150] Prowlarr
+2026-06-18 15:25:07.4|Info|MigrationController|*** Migrating data source=/config/prowlarr.db;cache size=-20000;datetimekind=Utc;journal mode=Wal;pooling=True;version=3;busytimeout=1000 ***
+2026-06-18 15:25:07.8|Info|FluentMigrator.Runner.MigrationRunner|DatabaseEngineVersionCheck migrating
+2026-06-18 15:25:07.8|Info|FluentMigrator.Runner.MigrationRunner|PerformDBOperation 
+2026-06-18 15:25:07.8|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Performing DB Operation
+2026-06-18 15:25:08.1|Info|DatabaseEngineVersionCheck|SQLite 3.50.4
+2026-06-18 15:25:08.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.24705s
+2026-06-18 15:25:08.1|Info|FluentMigrator.Runner.MigrationRunner|DatabaseEngineVersionCheck migrated
+2026-06-18 15:25:08.1|Info|FluentMigrator.Runner.MigrationRunner|=> 0.2615205s
+2026-06-18 15:25:08.2|Debug|MigrationController|Took: 00:00:00.7370836
+2026-06-18 15:25:08.2|Info|MigrationController|*** Migrating data source=/config/logs.db;cache size=-20000;datetimekind=Utc;journal mode=Wal;pooling=True;version=3;busytimeout=1000 ***
+2026-06-18 15:25:08.2|Info|FluentMigrator.Runner.MigrationRunner|DatabaseEngineVersionCheck migrating
+2026-06-18 15:25:08.2|Info|FluentMigrator.Runner.MigrationRunner|PerformDBOperation 
+2026-06-18 15:25:08.2|Info|NzbDrone.Core.Datastore.Migration.Framework.NzbDroneSQLiteProcessor|Performing DB Operation
+2026-06-18 15:25:08.3|Info|DatabaseEngineVersionCheck|SQLite 3.50.4
+2026-06-18 15:25:08.3|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0106539s
+2026-06-18 15:25:08.3|Info|FluentMigrator.Runner.MigrationRunner|DatabaseEngineVersionCheck migrated
+2026-06-18 15:25:08.3|Info|FluentMigrator.Runner.MigrationRunner|=> 0.0112961s
+2026-06-18 15:25:08.3|Debug|MigrationController|Took: 00:00:00.0763221
+2026-06-18 15:25:09.7|Info|Microsoft.Hosting.Lifetime|Now listening on: http://[::]:9696
+2026-06-18 15:25:10.3|Debug|NotificationFactory|Initializing Providers. Count 20
+2026-06-18 15:25:10.4|Info|CommandExecutor|Starting 3 threads for tasks.
+2026-06-18 15:25:10.9|Debug|HttpClient|Downloading [https://indexers.prowlarr.com/master/11/package.zip] to [/config/Definitions/indexers.zip]
+2026-06-18 15:25:11.5|Info|ManagedHttpDispatcher|IPv4 is available: True, IPv6 will be disabled
+2026-06-18 15:25:13.2|Debug|HttpClient|Downloading Completed. took 2s
+2026-06-18 15:25:13.7|Debug|IndexerDefinitionUpdateService|Updated indexer definitions
+2026-06-18 15:25:13.7|Debug|IndexerFactory|Initializing Providers. Count 67
+2026-06-18 15:25:13.7|Debug|IndexerProxyFactory|Initializing Providers. Count 4
+2026-06-18 15:25:13.7|Debug|DownloadClientFactory|Initializing Providers. Count 18
+2026-06-18 15:25:13.8|Debug|ApplicationFactory|Initializing Providers. Count 7
+2026-06-18 15:25:13.8|Info|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down.
+2026-06-18 15:25:13.8|Info|Microsoft.Hosting.Lifetime|Hosting environment: Production
+2026-06-18 15:25:13.8|Info|Microsoft.Hosting.Lifetime|Content root path: /app/prowlarr/bin
+2026-06-18 15:45:51.1|Warn|IndexerDefinitionUpdateService|Error while getting indexer definitions, fallback to reading from disk.
+
+[v2.3.5.5327] System.Net.WebException: Http request timed out
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.DecompressionHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at NzbDrone.Common.Http.Dispatchers.ManagedHttpDispatcher.GetResponseAsync(HttpRequest request, CookieContainer cookies) in ./NzbDrone.Common/Http/Dispatchers/ManagedHttpDispatcher.cs:line 120
+   --- End of inner exception stack trace ---
+   at NzbDrone.Common.Http.Dispatchers.ManagedHttpDispatcher.GetResponseAsync(HttpRequest request, CookieContainer cookies) in ./NzbDrone.Common/Http/Dispatchers/ManagedHttpDispatcher.cs:line 170
+   at NzbDrone.Common.Http.HttpClient.ExecuteRequestAsync(HttpRequest request, CookieContainer cookieContainer) in ./NzbDrone.Common/Http/HttpClient.cs:line 171
+   at NzbDrone.Common.Http.HttpClient.ExecuteAsync(HttpRequest request) in ./NzbDrone.Common/Http/HttpClient.cs:line 70
+   at NzbDrone.Common.Http.HttpClient.GetAsync[T](HttpRequest request) in ./NzbDrone.Common/Http/HttpClient.cs:line 393
+   at NzbDrone.Common.Http.HttpClient.Get[T](HttpRequest request) in ./NzbDrone.Common/Http/HttpClient.cs:line 401
+   at NzbDrone.Core.IndexerVersions.IndexerDefinitionUpdateService.All() in ./NzbDrone.Core/IndexerVersions/IndexerDefinitionUpdateService.cs:line 95
+
+
+2026-06-18 15:45:51.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/chdbits.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/devil-torrents.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hd-club.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/blueroms.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tornado.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/asiancinema.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/novahd.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xxxtor.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/vault-network.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/utopia.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nipponsei.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tangpt.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sktorrent-org.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/carpathians.yml
+2026-06-18 15:45:51.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentleech-pl.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/racing4everyone-api.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sportscora.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/teamhd.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kunlun.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/railgunpt.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/thefallingangels.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/0magnet.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/order66.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/oshenpt.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pixelcove2fa.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/exitorrent-org.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/noname-clubl.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentqq.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/concertos.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sexypics.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/springsunday.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/theleachzone-api.yml
+2026-06-18 15:45:51.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kinozal-magnet.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/dasunerwartete.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/superbits.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/fappaizuri2fa.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cinematik.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/crazyspirits-api.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/longpt.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/proaudiotorrents.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/drugari.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/linkomanija.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/btnext.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/f1carreras-api.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/discfan.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xingwan.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/panda.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptying.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdonly-api.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/party-tracker.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentproject2.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mactorrentsdownload.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bangumi-moe.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/shareisland-api.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/52bt.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/c411.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rockethd.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/polishtracker-api.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pixelcove.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/trancetraffic.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentdownloads.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/g3minitr4ck3r-api.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/crackingpatching.yml
+2026-06-18 15:45:51.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/makingoff.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bitbazis.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rgfootball.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/indietorrents.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentdownload.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cinemamovies.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/thevault.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/march.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdkylin.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptfiles.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xingtan.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xtorrenty.yml
+2026-06-18 15:45:51.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/opencd.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/retromoviesclub-api.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ggpt.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/theoccult.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tr4ker.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/3changtrai.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/metaltracker.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/malayabits-api.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/Bittorrentfiles.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/extratorrent-st.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/vsttorrents.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/postman.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mesevilag.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/digitalcore-api.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/turktorrent.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/agsvpt.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptlgs.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/crt2fa.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/noname-club.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/haitang.yml
+2026-06-18 15:45:51.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/luckpt.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/reelflix-api.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/datascene-api.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rain.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrent9.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ourbits.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/jpopsuki.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bootytape.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cyanbug.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/aftershock.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/audiences.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rintor.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/13city.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdarea.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdtorrentsit.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tmghub.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hydracker-api.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/happyfappy.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sunnypt.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/scenetime-api.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/crnaberza2fa.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rastastugan-api.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/trackermk.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mnv.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/thepiratebay.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/world-torrent.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdvideo.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/skipthecommercials-api.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdhome.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bitgamer.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/retrotoon.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/krazyzone.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/keepfriends.yml
+2026-06-18 15:45:51.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/freefarm.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/monikadesign-api.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mdan.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/carpt.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bitmagnet.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/crnaberza.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/whiteangel.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrent-turk.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentoyunindir.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bitporn.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/docspedia.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cinemageddon.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/haidan.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tasmanit.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/byrbt.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdfans.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hellenic-hd-api.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/podzemlje.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pornbay.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pandacd.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/unionfansub.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/muxuege.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tapochek.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentdd.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hhanclub.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/plugintorrent.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/selezen.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/skidrowrepack.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrenttip.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hudbt.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/coastalcrew.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/totheglory.yml
+2026-06-18 15:45:51.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/newstudiol.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/newstudio.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/momentpt.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/soulvoice.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kufei.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentsome.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/empornium.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xxxclub.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/postman-api.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ilcorsaroblu.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/milnueve-api.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/insanetracker.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/milkie.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/upscalevault.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/acgrip.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ncore.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/houseofdevil.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/losslessclub.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/electro-torrent.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bluebird.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/chilebt-api.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bitturk.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pignetwork.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tlfbits.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptskit.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/themixingbowl.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/theoldschool-api.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/magnetcat.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentclaw.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nekobt.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/deildu.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/trezzor.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ubits.yml
+2026-06-18 15:45:51.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rustorka.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/siambit.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/gaytorrentru.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/amigosshare.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/brasiltracker.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rainbowtracker.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/theempire.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/marinetracker.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/crabpt.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/zamundarip.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mvgroupforum.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/snowpt.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hd-unit3d-api.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/opensharing.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mvgroupmain.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/vietmediaf.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/thegeeks.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/fuzer.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/teamos.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cathoderaytube.yml
+2026-06-18 15:45:52.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ztracker.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/freejavtorrent.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/helltorrents.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hellashut-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/magnetdownload.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/flood.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nirvana.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdturk.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/lp-bits.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/generationfree-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/lemonhd-net.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pornbytes-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tekno3d.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nobs.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/onlyencodes-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/arabp2p.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/runtheframes-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/theshow.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdforever2fa.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/shadowbit.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/world-of-tomorrow.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdspace.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/yts.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/yuscene-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/clearjav-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/herobit.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/gamestorrents.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/polishtorrent.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rintornet.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrenteros-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/shakaw.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xwtclassics.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hddolby.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cyclingarchiveclub.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentleech.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/3dtorrents.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/onejav.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/jme-reunit3d-api.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/btetree.yml
+2026-06-18 15:45:52.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/swarmazon-api.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/wihd.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/exkinoray.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/theparadiese.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cgpeers.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentby.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrent-pirat.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/okpt.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/showrss.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tokyotosho.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hebits.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/teamflix.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/speedmasterhd.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdroute.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/gay-torrents.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/metalguru.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/infinity-api.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/thecrazyones.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/capybarabr.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/new-team.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/zappateers.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrenttrader.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pttey.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xingyung.yml
+2026-06-18 15:45:52.2|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/uztracker.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdsky.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/korsar.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/dimeadozen.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/emuwarez.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/thekitchen.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bluetorrents.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bestcore.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/riperam.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/anisource.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/0daykiev.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hqmusic.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentmasters.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdc.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/elitetorrent-wf.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sextorrent-api.yml
+2026-06-18 15:45:52.3|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/animeworld-api.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nexum-api.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mojblink.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/leech24.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/damagnet.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/jptv4us-api.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/4thd.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/shanaproject.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/dmhy.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrenthr.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kickasstorrents-ws.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hellashut.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sbpt.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pctorrent.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/booktracker.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/aither-api.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/punkshorror.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kinozal.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pttime.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nordicbytes.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/arabtorrents.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pornotorrent.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bwtorrents.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/52pt.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/backups.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/comicat.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/linuxtracker.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/polskie-torrenty.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bjshare.yml
+2026-06-18 15:45:52.4|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tormac.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/arabtorrents-com.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/turkseed-api.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sosulki.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/parabellumhd-api.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sewerpt.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/samaritano.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/zrpt.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/lastdigitalunderground.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tribalmixes.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tocashare.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/u2.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/btarg.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentavenue-api.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/portugas-api.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentcore.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdgalaktik.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/girotorrent.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/karagarga.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdu.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/luminarr-api.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bigbbs.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/racingforme.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/estone.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/zenith.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/phoenixproject.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kufirc.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/btschool.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pornrips.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/dubhe.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/funzone-api.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/diablotorrent.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/peersfm.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/btstate.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bibliotik.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/musopia.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/femdomcult.yml
+2026-06-18 15:45:52.5|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bithumen.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rutor.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/matrix.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdzero.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/traht.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sugoimusic.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/vstorrent.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torr9.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/megapeer.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/explosiv-world.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/r3vwtf.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptgtk.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdbao.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/totheglory2fa.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ds-reloaded.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/trezzorcookie.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/lst.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdtorrents.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/proporno.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdclone.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/magico.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ex-torrenty.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/abtorrents.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdtime.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptfans.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mma-torrents.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/itatorrents.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/byrutor.yml
+2026-06-18 15:45:52.6|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/peeratiko.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/locadora.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/filemood.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptitzmx.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mixtapetorrent.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/best-torrents.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ehentai.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hxpt.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nyaasi.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/puntotorrent.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bitded.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bitpalace.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/uindex.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/unlimitz.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/azusa.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/newheaven.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cangbaoge.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/fanoin.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/midnightscene.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/uploadcx.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/eztv.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/arabscene.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rudub.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentgalaxyclone.yml
+2026-06-18 15:45:52.7|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/thebrothers.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kinorun.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tsdb.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/arabafenice.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/playletpt.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/peergarden.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/boxingtorrents.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mikan.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/darkpeers.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/cspt.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/asiandvdclub.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/libranet.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/blutopia-api.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/animebybelka.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/zmpt.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/animetorrentsro.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/miobt.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rockbox.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdolimpo-api.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/wintersakura.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/czteam-api.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptsbao.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kelu.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/oldtoonsworld.yml
+2026-06-18 15:45:52.8|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bluraytracker.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hawke-uno.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/dreamingtree.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/immortuos.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/baozipt.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/vsthouse.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/teamctgame.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nordicquality.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/scenerush.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kufirc2fa.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/1337x.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mypornclub.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nethd.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentccf.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/fappaizuri.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mousebits.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/learnflakes.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/aussierules.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/siqi.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/dxp.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/happyfappy2fa.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xwtorrents.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/thenewfun.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/qingwa.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/oldgreektracker.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptcc.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/abnormal-api.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrenting.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/infire.yml
+2026-06-18 15:45:52.9|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/majomparade.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ultrahd.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/alingpt.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/beload.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kamept.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/arabicsource-api.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/btdirectory.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/extremebits.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/theplace.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentbd.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pwtorrents.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/limetorrents.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptlao.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/finelite.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/acrossthetasman.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nicept.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ebooks-shares.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/lesaloon.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/audionews.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/anthelion-api.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/fenyarnyek-tracker.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/gimmepeers.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/p2pbg.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/myspleen.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/yggreborn-api.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/funkytorrents.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptzone.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/lajidui.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/borgzelle.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rotorrent-api.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sportscult.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ultrabits-api.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/aura4k-api.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/file-tracker.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/lat-team-api.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/internetarchive.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentkitty.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/u3c3.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xloli.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/futuretorrent.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/njtupt.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/newretro.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/torrentlt.yml
+2026-06-18 15:45:53.0|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nostradamus.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pornolab.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pier720.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/romanianmetaltorrents.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/madsrevolution.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/animetosho-xyz.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/empornium2fa.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bigfangroup.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/bigcore.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/letseed.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/catorrent.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hhd-api.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/nanyangpt.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ceskeforum.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/kickasstorrents-to.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/musebootlegs.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/spiritofrevolution.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/redstartorrent.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/dasunerwartete-api.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/hdforever.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/mazepa.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pterclub.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/seedfile.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/trackerzero.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pthome.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/huntorrent.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/1ptbar.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/seedpool-api.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ptcafe.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/concen.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/lastfiles.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/putao.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/xtremebytes.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sukebeinyaasi.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/sktorrent.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/animelayer.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/gigatorrents.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/aidoruonline.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/ebookbay.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/desitorrents-api.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/infinityhd-api.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/tjupt.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/pussytorrents.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/eztvl.yml
+2026-06-18 15:45:53.1|Debug|IndexerDefinitionUpdateService|Loading definition /config/Definitions/rousi-pro.yml
+2026-06-18 15:47:33.1|Warn|SystemTimeCheck|Unable to verify system time
+
+[v2.3.5.5327] System.Net.WebException: Http request timed out
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.DecompressionHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at NzbDrone.Common.Http.Dispatchers.ManagedHttpDispatcher.GetResponseAsync(HttpRequest request, CookieContainer cookies) in ./NzbDrone.Common/Http/Dispatchers/ManagedHttpDispatcher.cs:line 120
+   --- End of inner exception stack trace ---
+   at NzbDrone.Common.Http.Dispatchers.ManagedHttpDispatcher.GetResponseAsync(HttpRequest request, CookieContainer cookies) in ./NzbDrone.Common/Http/Dispatchers/ManagedHttpDispatcher.cs:line 170
+   at NzbDrone.Common.Http.HttpClient.ExecuteRequestAsync(HttpRequest request, CookieContainer cookieContainer) in ./NzbDrone.Common/Http/HttpClient.cs:line 171
+   at NzbDrone.Common.Http.HttpClient.ExecuteAsync(HttpRequest request) in ./NzbDrone.Common/Http/HttpClient.cs:line 70
+   at NzbDrone.Common.Http.HttpClient.Execute(HttpRequest request) in ./NzbDrone.Common/Http/HttpClient.cs:line 137
+   at NzbDrone.Core.HealthCheck.Checks.SystemTimeCheck.Check() in ./NzbDrone.Core/HealthCheck/Checks/SystemTimeCheck.cs:line 38
+
+
+2026-06-18 15:47:39.2|Error|TaskExtensions|Task Error
+
+[v2.3.5.5327] System.Net.Http.HttpRequestException: Network unreachable (prowlarr.servarr.com:443)
+ ---> System.Net.Sockets.SocketException (101): Network unreachable
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at NzbDrone.Common.Http.Dispatchers.ManagedHttpDispatcher.attemptConnection(AddressFamily addressFamily, SocketsHttpConnectionContext context, CancellationToken cancellationToken) in ./NzbDrone.Common/Http/Dispatchers/ManagedHttpDispatcher.cs:line 355
+   at NzbDrone.Common.Http.Dispatchers.ManagedHttpDispatcher.onConnect(SocketsHttpConnectionContext context, CancellationToken cancellationToken) in ./NzbDrone.Common/Http/Dispatchers/ManagedHttpDispatcher.cs:line 341
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp2ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.AuthenticationHelper.SendWithAuthAsync(HttpRequestMessage request, Uri authUri, Boolean async, ICredentials credentials, Boolean preAuthenticate, Boolean isProxyAuth, Boolean doRequestAuth, HttpConnectionPool pool, CancellationToken cancellationToken)
+   at System.Net.Http.DecompressionHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at NzbDrone.Common.Http.Dispatchers.ManagedHttpDispatcher.GetResponseAsync(HttpRequest request, CookieContainer cookies) in ./NzbDrone.Common/Http/Dispatchers/ManagedHttpDispatcher.cs:line 120
+   at NzbDrone.Common.Http.HttpClient.ExecuteRequestAsync(HttpRequest request, CookieContainer cookieContainer) in ./NzbDrone.Common/Http/HttpClient.cs:line 171
+   at NzbDrone.Common.Http.HttpClient.ExecuteAsync(HttpRequest request) in ./NzbDrone.Common/Http/HttpClient.cs:line 70
+   at NzbDrone.Common.Http.HttpClient.GetAsync[T](HttpRequest request) in ./NzbDrone.Common/Http/HttpClient.cs:line 393
+   at NzbDrone.Common.Http.HttpClient.Get[T](HttpRequest request) in ./NzbDrone.Common/Http/HttpClient.cs:line 401
+   at NzbDrone.Core.Update.UpdatePackageProvider.GetLatestUpdate(String branch, Version currentVersion) in ./NzbDrone.Core/Update/UpdatePackageProvider.cs:line 59
+   at NzbDrone.Core.Update.CheckUpdateService.AvailableUpdate() in ./NzbDrone.Core/Update/UpdateCheckService.cs:line 25
+   at NzbDrone.Core.HealthCheck.Checks.UpdateCheck.Check() in ./NzbDrone.Core/HealthCheck/Checks/UpdateCheck.cs:line 91
+   at NzbDrone.Core.HealthCheck.HealthCheckService.<ProcessHealthChecks>b__15_0(IProvideHealthCheck c) in ./NzbDrone.Core/HealthCheck/HealthCheckService.cs:line 98
+   at System.Linq.Enumerable.SelectListIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.SelectListIterator`2.ToList()
+   at NzbDrone.Core.HealthCheck.HealthCheckService.ProcessHealthChecks() in ./NzbDrone.Core/HealthCheck/HealthCheckService.cs:line 95
+   at NzbDrone.Core.HealthCheck.HealthCheckService.HandleAsync(IEvent message) in ./NzbDrone.Core/HealthCheck/HealthCheckService.cs:line 187
+   at NzbDrone.Core.Messaging.Events.EventAggregator.<>c__DisplayClass6_1`1.<PublishEvent>b__1() in ./NzbDrone.Core/Messaging/Events/EventAggregator.cs:line 108
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+
+
+2026-06-18 19:38:41.6|Debug|InstallUpdateService|Checking for updates
+2026-06-18 19:38:42.0|Debug|InstallUpdateService|Auto-update not enabled, not installing available update.
+2026-06-19 01:38:42.4|Debug|InstallUpdateService|Checking for updates
+2026-06-19 01:38:42.7|Debug|InstallUpdateService|Auto-update not enabled, not installing available update.
+2026-06-19 07:38:43.1|Debug|InstallUpdateService|Checking for updates
+2026-06-19 07:38:43.5|Debug|InstallUpdateService|Auto-update not enabled, not installing available update.
+2026-06-19 13:38:43.9|Info|HistoryService|Removing items older than 30 days from history
+2026-06-19 13:38:43.9|Debug|InstallUpdateService|Checking for updates
+2026-06-19 13:38:43.9|Debug|HistoryService|History has been cleaned up.
+2026-06-19 13:38:43.9|Info|HousekeepingService|Running housecleaning tasks
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupAdditionalUsers
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupAdditionalUsers
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupCommandQueue
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupCommandQueue
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupOrphanedApplicationStatus
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupOrphanedApplicationStatus
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupOrphanedDownloadClientStatus
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupOrphanedDownloadClientStatus
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupOrphanedHistoryItems
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupOrphanedHistoryItems
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupOrphanedIndexerStatus
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupOrphanedIndexerStatus
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupOrphanedNotificationStatus
+2026-06-19 13:38:43.9|Debug|HttpClient|Downloading [https://indexers.prowlarr.com/master/11/package.zip] to [/config/Definitions/indexers.zip]
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupOrphanedNotificationStatus
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupTemporaryUpdateFiles
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupTemporaryUpdateFiles
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting CleanupUnusedTags
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed CleanupUnusedTags
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting FixFutureApplicationStatusTimes
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed FixFutureApplicationStatusTimes
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting FixFutureDownloadClientStatusTimes
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed FixFutureDownloadClientStatusTimes
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting FixFutureIndexerStatusTimes
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed FixFutureIndexerStatusTimes
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting FixFutureNotificationStatusTimes
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed FixFutureNotificationStatusTimes
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting FixFutureRunScheduledTasks
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Completed FixFutureRunScheduledTasks
+2026-06-19 13:38:43.9|Debug|HousekeepingService|Starting TrimLogDatabase
+2026-06-19 13:38:43.9|Info|Database|Vacuuming Log database
+2026-06-19 13:38:44.0|Info|Database|Log database compressed
+2026-06-19 13:38:44.0|Debug|HousekeepingService|Completed TrimLogDatabase
+2026-06-19 13:38:44.0|Debug|HousekeepingService|Compressing main database after housekeeping
+2026-06-19 13:38:44.0|Info|Database|Vacuuming Main database
+2026-06-19 13:38:44.0|Info|Database|Main database compressed
+2026-06-19 13:38:44.2|Debug|InstallUpdateService|Auto-update not enabled, not installing available update.
+2026-06-19 13:38:44.3|Debug|HttpClient|Downloading Completed. took 0s
+2026-06-19 13:38:44.4|Debug|IndexerDefinitionUpdateService|Updated indexer definitions
+2026-06-19 14:08:09.1|Info|Microsoft.Hosting.Lifetime|Application is shutting down...
+2026-06-19 14:08:09.3|Info|ConsoleApp|Exiting main.
